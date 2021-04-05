@@ -1,0 +1,16 @@
+{
+  "name": "summerfridays-udy-theme",
+  "dependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "glob": "^7.1.6",
+    "sharp": "^0.26.1"
+  },
+  "scripts": {
+    "serve": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
+  },
+  "devDependencies": {
+    "date-fns": "2.16.1",
+    "html-minifier": "4.0.0"
+  }
+}

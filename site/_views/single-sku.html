@@ -1,0 +1,16 @@
+---
+permalink: "sku/{{ page.fileSlug}}.json"
+---
+{%- assign item = page | getCurrentPageItem -%}
+{
+  "id": {{item.data.slug | json }},
+  "price": {{item.data.price | json }},
+  "more-images": {{item.data['more-images'] | json }},
+  "main-image": {{ item.data['main-image'] | json  }},
+  "name": {{ item.data.name | json  }},
+  "compare-at-price": {{item.data['compare-at-price'] | json }},
+  "slug": {{ item.data.slug | json  }},
+  "product": {{ item.data.product | json  }},
+  "download-files": {{ item.data['download-files'] | json  }},
+  "sku-values": {{ item.data['sku-values'] | json  }}
+}

@@ -1,0 +1,27 @@
+stackbitVersion: "~0.3.0"
+ssgName: "custom"
+buildCommand: "npx @11ty/eleventy"
+publishDir: "public"
+staticDir: "static"
+uploadDir: "images"
+pagesDir: "site"
+metadata:
+  title: "summerfridays "
+  description: "Theme created in Webflow and converted with Udesly"
+models:
+  product:
+    type: "page"
+    label: "Products"
+    urlPath: "/product/{slug}"
+  sku:
+    type: "page"
+    label: "SKUs"
+    urlPath: "/sku/{slug}"
+  post:
+    type: "page"
+    label: "Blog Posts"
+    urlPath: "/post/{slug}"
+  category:
+    type: "page"
+    label: "Categories"
+    urlPath: "/category/{slug}"
