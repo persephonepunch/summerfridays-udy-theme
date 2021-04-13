@@ -5760,7 +5760,7 @@ blockquote {
   -ms-flex-item-align: center;
   align-self: center;
   border-bottom-style: solid;
-  background-color: transparent;
+  background-color: #eeebe8;
   line-height: 100%;
   font-style: normal;
   text-decoration: none;
@@ -8244,6 +8244,7 @@ blockquote {
   grid-column-gap: 0px;
   -ms-grid-columns: 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: #eeebe8;
 }
 
 .dropdown {
@@ -8407,7 +8408,7 @@ blockquote {
 .leftproduct {
   position: -webkit-sticky;
   position: sticky;
-  top: 0px;
+  top: 64px;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -ms-flex: 1;

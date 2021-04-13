@@ -1,0 +1,42 @@
+---js
+{
+  pagination: {
+  data: "collections.ee1013c_paged",
+  size: 1,
+  alias: "c",
+  },
+  permalink: "{{ c.permalink }}"
+}  
+---
+{%- capture items -%}
+{%- for item in c.items -%}
+<div role="listitem" class="w-dyn-item">
+            <div class="collection-item__card-product">
+              <a href="#" class="card-product_wrapper-image w-inline-block">{%- assign ref = item | resolveReference: "default-sku", "sku" -%}<img src="{{ ref.data['main-image'].url | escape }}" alt="{{ ref.data['main-image'].alt | escape }}" class="wrapper-image__img">
+                {%- assign ref = item | resolveReference: "default-sku", "sku" -%}{%- if ref.data.compare-at-price -%}<div class="on-sale-badge-card">
+                  <div class="text-block-122">on sale</div>
+                </div>{%- endif -%}
+              </a>
+              <div class="card-blog__wrapper-text">
+                {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<div data-commerce-type="variation-price" class="link__text-2 blog">{{ ref.data.price | formatPrice }}</div>
+                <h1 class="wrapper--text__title">{{ item.data.name }}</h1>
+                <div>
+                  {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform">{%- if item.data['sku-properties'] -%}<fieldset data-node-type="add-to-cart-option-list">{%- for prop in item.data['sku-properties'] -%}<fieldset data-node-type="add-to-cart-option" name="data-sku-property"><label>{{ prop.name }}</label><select class="w-select" name="{{ prop.name }}">{% for option in prop.enum %}<option value="{{ option.name | slugify }}">{{option.name}}</option>{% endfor %}</select></fieldset>{%- endfor -%}</fieldset>{%- endif -%}<input type="submit" value="Add To Cart" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." class="w-commerce-commerceaddtocartbutton button-6"><script type="application/json">{{ collections._variations[item.data.slug].variationsData | json }}</script></form>
+                  <div style="display:none" class="w-commerce-commerceaddtocartoutofstock">
+                    <div>This product is out of stock.</div>
+                  </div>
+                  <div data-node-type="commerce-add-to-cart-error" style="display:none" class="w-commerce-commerceaddtocarterror">
+                    <div data-node-type="commerce-add-to-cart-error" data-w-add-to-cart-quantity-error="Product is not available in this quantity." data-w-add-to-cart-general-error="Something went wrong when adding this item to the cart." data-w-add-to-cart-mixed-cart-error="You can’t purchase another product with a subscription." data-w-add-to-cart-buy-now-error="Something went wrong when trying to purchase this item." data-w-add-to-cart-checkout-disabled-error="Checkout is disabled on this site." data-w-add-to-cart-select-all-options-error="Please select an option in each set.">Product is not available in this quantity.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{%- endfor -%}
+{%- endcapture -%}
+{
+  "items": {{ items | json }},
+   "length": "{{ c.items.length }}",
+   "next": "{{c.next }}",
+   "prev": "{{c.prev}}"
+}

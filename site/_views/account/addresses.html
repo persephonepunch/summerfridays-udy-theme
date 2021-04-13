@@ -41,7 +41,7 @@
               <div class="cart">
                 <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                   <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                    <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                    <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                   </a>
                   <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
                     <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
@@ -72,7 +72,7 @@
                           <div class="w-commerce-commercecartfooter cart-footer">
                             <div class="w-commerce-commercecartlineitem cart-line-item">
                               <div class="size5-text-2">Subtotal</div>
-                              <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                              <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                             </div>
                             <div>
                               <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -135,11 +135,11 @@
               <a href="#" class="link-block-13 w-inline-block"><img src="/static/images/search.svg" loading="lazy" width="40" alt=""></a>
             </div>
             <div class="cart">
-              <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+              <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightDropdown" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                 </a>
-                <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
+                <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightDropdown cart-wrap">
                   <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
                     <div class="w-commerce-commercecartheader cart-header"><img src="/static/images/summerfriday.svg" width="180" alt="">
                       <h4 class="w-commerce-commercecartheading cart-heading-2">Your Cart</h4>
@@ -168,7 +168,7 @@
                         <div class="w-commerce-commercecartfooter cart-footer">
                           <div class="w-commerce-commercecartlineitem cart-line-item">
                             <div class="size5-text-2">Subtotal</div>
-                            <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                            <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                           </div>
                           <div>
                             <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -199,9 +199,9 @@
     </div>
     <div class="section-24">
       <div class="login-logo-wrapper"><img src="/static/images/summerlogos.svg" width="130" alt=""></div>
-      <div class="addresses---copy-this w-dyn-list">
-        <div role="list" class="collection-list-9 w-dyn-items w-row">
-          <div role="listitem" class="address-collection-item w-dyn-item w-col w-col-4">
+      {%- assign collectionId = "main" -%}{%- assign collection = collections["-6c926854"][collectionId] | limit: 1 -%}<div class="addresses---copy-this w-dyn-list">
+        {%- if collection.length > 0 -%}<div role="list" class="collection-list-9 w-dyn-items w-row">
+          {%- for item in collection -%}<div role="listitem" class="address-collection-item w-dyn-item w-col w-col-4">
             <div class="addresses-form---copy-this w-form">
               <form id="email-form" name="email-form" data-name="Email Form" class="form-3"><label for="node" class="field-label">Address</label><input type="text" maxlength="256" required="" id="node" class="text-field-15 w-input"><select id="field" name="field" data-name="Field" class="select-field-2 w-select">
                   <option value="">Select one...</option>
@@ -217,11 +217,11 @@
               </div>
             </div>
             <a href="#" class="delete-address w-button">Delete Address</a>
-          </div>
-        </div>
-        <div class="empty-state-6 w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endif -%}
+        {%- unless collection.length > 0 -%}<div class="empty-state-6 w-dyn-empty">
           <div class="div-block-39"></div>
-        </div>
+        </div>{%- endunless -%}
       </div>
       <div class="separator"></div>
       <div class="new-addresses-form---copy-this w-form">

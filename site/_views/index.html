@@ -69,7 +69,7 @@
             <div class="cart">
               <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                 </a>
                 <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
                   <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
@@ -100,7 +100,7 @@
                         <div class="w-commerce-commercecartfooter cart-footer">
                           <div class="w-commerce-commercecartlineitem cart-line-item">
                             <div class="size5-text-2">Subtotal</div>
-                            <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                            <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                           </div>
                           <div>
                             <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -163,11 +163,11 @@
             <a href="#" class="link-block-13 w-inline-block"><img src="/static/images/search.svg" loading="lazy" width="40" alt=""></a>
           </div>
           <div class="cart">
-            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightDropdown" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
               <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
               </a>
-              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
+              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightDropdown cart-wrap">
                 <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
                   <div class="w-commerce-commercecartheader cart-header"><img src="/static/images/summerfriday.svg" width="180" alt="">
                     <h4 class="w-commerce-commercecartheading cart-heading-2">Your Cart</h4>
@@ -196,7 +196,7 @@
                       <div class="w-commerce-commercecartfooter cart-footer">
                         <div class="w-commerce-commercecartlineitem cart-line-item">
                           <div class="size5-text-2">Subtotal</div>
-                          <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                          <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                         </div>
                         <div>
                           <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -291,19 +291,19 @@
           <div class="colproduct">
             <div shop:products="recent-products" class="swiper-container w-dyn-list">
               <div role="list" class="swiper-wrapper w-dyn-items">
-                <div role="listitem" class="swiper-slide w-dyn-item">
+                {%- for item in collection -%}<div role="listitem" class="swiper-slide w-dyn-item">
                   <div class="scroll-card">
                     <div class="div-block-334">
-                      <div class="w-layout-grid grid-9"><img src="/static/" loading="lazy" alt="" class="image-55">
+                      <div class="w-layout-grid grid-9">{%- assign ref = item | resolveReference: "default-sku", "" -%}<img loading="lazy" src="{{ ref.data['main-image'].url | escape }}" alt="{{ ref.data['main-image'].alt | escape }}" class="image-55">
                         <div class="price">
-                          <div class="text-block-139"></div>
+                          <div class="text-block-139">{{ item.data.name }}</div>
                           <div class="div-block-333">
-                            <div class="text-block-137"></div>
-                            <div class="text-block-140"></div>
+                            {%- assign ref = item | resolveReference: "default-sku", "" -%}<div class="text-block-137">{{ ref.data['compare-at-price'] | formatPrice }}</div>
+                            {%- assign ref = item | resolveReference: "default-sku", "" -%}<div data-commerce-type="variation-price" class="text-block-140">{{ ref.data.price | formatPrice }}</div>
                           </div>
                         </div>
                         <div id="w-node-_2debdeeb-95b2-8918-c2f6-f7568b76210f-1ebf91dc" class="add-to-cart">
-                          <form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform"><input type="number" pattern="^[0-9]+$" inputmode="numeric" id="quantity-fb696dec07147f49598b424141c13443" name="commerce-add-to-cart-quantity-input" min="1" class="w-commerce-commerceaddtocartquantityinput quantity-4" value="1"><input type="submit" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." value="Add to Cart" class="w-commerce-commerceaddtocartbutton button-product">
+                          {%- assign ref = item | resolveReference: "default-sku", "" -%}<form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform">{%- for prop in item.data['sku-properties'] -%}<fieldset data-node-type="add-to-cart-option" name="data-sku-property"><label>{{ prop.name }}</label><select class="w-select" style="display: none;" name="{{ prop.name }}">{% for option in prop.enum %}<option value="{{ option.name | slugify }}">{{option.name}}</option>{% endfor %}</select><div class="w-commerce-commerceaddtocartoptionpillgroup" aria-label="{{ prop.name | escape }}">{%- for option in prop.enum -%}<div class="w-commerce-commerceaddtocartoptionpill" data-option-name="{{ option.name | slugify }}"><div>{{ option.name }}</div></div>{%- endfor -%}</div></fieldset>{%- endfor -%}<input type="number" pattern="^[0-9]+$" inputmode="numeric" id="quantity-fb696dec07147f49598b424141c13443" name="commerce-add-to-cart-quantity-input" min="1" class="w-commerce-commerceaddtocartquantityinput quantity-4" value="1"><input type="submit" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." value="Add to Cart" class="w-commerce-commerceaddtocartbutton button-product">
                             <a href="/checkout/" data-node-type="commerce-buy-now-button" data-default-text="Buy now" data-subscription-text="Subscribe now" class="w-commerce-commercebuynowbutton buy-now-button">Buy now</a>
                           <script type="application/json">{{ collections._variations[item.data.slug].variationsData | json }}</script></form>
                           <div style="display:none" class="w-commerce-commerceaddtocartoutofstock">
@@ -316,11 +316,11 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>{%- endfor -%}
               </div>
-              <div class="w-dyn-empty">
+              {%- unless collection.length > 0 -%}<div class="w-dyn-empty">
                 <div>No items found.</div>
-              </div>
+              </div>{%- endunless -%}
             </div>
           </div>
           <div></div>
@@ -396,19 +396,19 @@
           <div class="colproduct">
             <div shop:products="recent-products" class="swiper-container w-dyn-list">
               <div role="list" class="swiper-wrapper w-dyn-items">
-                <div role="listitem" class="swiper-slide w-dyn-item">
+                {%- for item in collection -%}<div role="listitem" class="swiper-slide w-dyn-item">
                   <div class="scroll-card">
                     <div class="div-block-334">
-                      <div class="w-layout-grid grid-9"><img src="/static/" loading="lazy" alt="" class="image-55">
+                      <div class="w-layout-grid grid-9">{%- assign ref = item | resolveReference: "default-sku", "" -%}<img loading="lazy" src="{{ ref.data['main-image'].url | escape }}" alt="{{ ref.data['main-image'].alt | escape }}" class="image-55">
                         <div class="price">
-                          <div class="text-block-139"></div>
+                          <div class="text-block-139">{{ item.data.name }}</div>
                           <div class="div-block-333">
-                            <div class="text-block-137"></div>
-                            <div class="text-block-140"></div>
+                            {%- assign ref = item | resolveReference: "default-sku", "" -%}<div class="text-block-137">{{ ref.data['compare-at-price'] | formatPrice }}</div>
+                            {%- assign ref = item | resolveReference: "default-sku", "" -%}<div data-commerce-type="variation-price" class="text-block-140">{{ ref.data.price | formatPrice }}</div>
                           </div>
                         </div>
                         <div>
-                          <form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform"><input type="number" pattern="^[0-9]+$" inputmode="numeric" id="quantity-fb696dec07147f49598b424141c13443" name="commerce-add-to-cart-quantity-input" min="1" class="w-commerce-commerceaddtocartquantityinput quantity-4" value="1"><input type="submit" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." value="Add to Cart" class="w-commerce-commerceaddtocartbutton button-product">
+                          {%- assign ref = item | resolveReference: "default-sku", "" -%}<form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform">{%- for prop in item.data['sku-properties'] -%}<fieldset data-node-type="add-to-cart-option" name="data-sku-property"><label>{{ prop.name }}</label><select class="w-select" style="display: none;" name="{{ prop.name }}">{% for option in prop.enum %}<option value="{{ option.name | slugify }}">{{option.name}}</option>{% endfor %}</select><div class="w-commerce-commerceaddtocartoptionpillgroup" aria-label="{{ prop.name | escape }}">{%- for option in prop.enum -%}<div class="w-commerce-commerceaddtocartoptionpill" data-option-name="{{ option.name | slugify }}"><div>{{ option.name }}</div></div>{%- endfor -%}</div></fieldset>{%- endfor -%}<input type="number" pattern="^[0-9]+$" inputmode="numeric" id="quantity-fb696dec07147f49598b424141c13443" name="commerce-add-to-cart-quantity-input" min="1" class="w-commerce-commerceaddtocartquantityinput quantity-4" value="1"><input type="submit" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." value="Add to Cart" class="w-commerce-commerceaddtocartbutton button-product">
                             <a href="/checkout/" data-node-type="commerce-buy-now-button" data-default-text="Buy now" data-subscription-text="Subscribe now" class="w-commerce-commercebuynowbutton buy-now-button">Buy now</a>
                           <script type="application/json">{{ collections._variations[item.data.slug].variationsData | json }}</script></form>
                           <div style="display:none" class="w-commerce-commerceaddtocartoutofstock">
@@ -421,11 +421,11 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>{%- endfor -%}
               </div>
-              <div class="w-dyn-empty">
+              {%- unless collection.length > 0 -%}<div class="w-dyn-empty">
                 <div>No items found.</div>
-              </div>
+              </div>{%- endunless -%}
             </div>
           </div>
           <div></div>

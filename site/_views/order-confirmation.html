@@ -38,7 +38,7 @@
             <div class="cart">
               <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                 </a>
                 <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
                   <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
@@ -69,7 +69,7 @@
                         <div class="w-commerce-commercecartfooter cart-footer">
                           <div class="w-commerce-commercecartlineitem cart-line-item">
                             <div class="size5-text-2">Subtotal</div>
-                            <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                            <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                           </div>
                           <div>
                             <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -132,11 +132,11 @@
             <a href="#" class="link-block-13 w-inline-block"><img src="/static/images/search.svg" loading="lazy" width="40" alt=""></a>
           </div>
           <div class="cart">
-            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightDropdown" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
               <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
               </a>
-              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
+              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightDropdown cart-wrap">
                 <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
                   <div class="w-commerce-commercecartheader cart-header"><img src="/static/images/summerfriday.svg" width="180" alt="">
                     <h4 class="w-commerce-commercecartheading cart-heading-2">Your Cart</h4>
@@ -165,7 +165,7 @@
                       <div class="w-commerce-commercecartfooter cart-footer">
                         <div class="w-commerce-commercecartlineitem cart-line-item">
                           <div class="size5-text-2">Subtotal</div>
-                          <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                          <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                         </div>
                         <div>
                           <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -203,15 +203,15 @@
           </div>
           <fieldset class="w-commerce-commercecheckoutblockcontent">
             <div class="w-commerce-commercecheckoutrow">
-              <div class="w-commerce-commercecheckoutcolumn">
+              {%- if item.data.requiresShipping == true -%}<div class="w-commerce-commercecheckoutcolumn">
                 <div class="w-commerce-commercecheckoutsummaryitem"><label class="w-commerce-commercecheckoutsummarylabel">Shipping Address</label>
-                  <div></div>
+                  <div>{{ item.data.shippingAddressAddressee }}</div>
                 </div>
-              </div>
+              </div>{%- endif -%}
             </div>
           </fieldset>
         </div>
-        <div class="w-commerce-commercecheckoutshippingsummarywrapper">
+        {%- if item.data.requiresShipping == true -%}<div class="w-commerce-commercecheckoutshippingsummarywrapper">
           <div class="w-commerce-commercecheckoutsummaryblockheader">
             <h4>Shipping Method</h4>
           </div>
@@ -219,13 +219,13 @@
             <div class="w-commerce-commercecheckoutrow">
               <div class="w-commerce-commercecheckoutcolumn">
                 <div class="w-commerce-commercecheckoutsummaryitem">
-                  <div></div>
-                  <div></div>
+                  <div>{{ item.data.shippingMethodName }}</div>
+                  <div>{{ item.data.shippingMethodDescription }}</div>
                 </div>
               </div>
             </div>
           </fieldset>
-        </div>
+        </div>{%- endif -%}
         <div class="w-commerce-commercecheckoutpaymentsummarywrapper">
           <div class="w-commerce-commercecheckoutsummaryblockheader">
             <h4>Payment Info</h4>
@@ -235,19 +235,19 @@
               <div class="w-commerce-commercecheckoutcolumn">
                 <div class="w-commerce-commercecheckoutsummaryitem"><label class="w-commerce-commercecheckoutsummarylabel">Payment Info</label>
                   <div class="w-commerce-commercecheckoutsummaryflexboxdiv">
-                    <div order="payment-method" class="w-commerce-commercecheckoutsummarytextspacingondiv"></div>
-                    <div class="w-commerce-commercecheckoutsummarytextspacingondiv"></div>
+                    <div order="payment-method" class="w-commerce-commercecheckoutsummarytextspacingondiv">{{ item.data.cardProvider }}</div>
+                    <div class="w-commerce-commercecheckoutsummarytextspacingondiv">{{ item.data.cardLastFour }}</div>
                   </div>
                   <div class="w-commerce-commercecheckoutsummaryflexboxdiv">
-                    <div></div>
-                    <div> / </div>
-                    <div></div>
+                    <div>{{ item.data.cardExpiresMonth }}</div>
+                    {%- if item.data.cardExpiresMonth -%}<div> / </div>{%- endif -%}
+                    <div>{{ item.data.cardExpiresYear }}</div>
                   </div>
                 </div>
               </div>
               <div class="w-commerce-commercecheckoutcolumn">
                 <div class="w-commerce-commercecheckoutsummaryitem"><label class="w-commerce-commercecheckoutsummarylabel">Billing Address</label>
-                  <div></div>
+                  <div>{{ item.data.billingAddressAddressee }}</div>
                 </div>
               </div>
             </div>
@@ -262,7 +262,7 @@
           <fieldset class="w-commerce-commercecheckoutblockcontent">
             <div class="w-commerce-commercecheckoutsummarylineitem">
               <div>Subtotal</div>
-              <div></div>
+              <div>{{ item.data.subtotal | formatPrice }}</div>
             </div>
             <div class="w-commerce-commercecheckoutsummarylineitem total-line-item">
               <div>Tax Title</div>
@@ -270,7 +270,7 @@
             </div>
             <div class="w-commerce-commercecheckoutsummarylineitem">
               <div>Total</div>
-              <div class="w-commerce-commercecheckoutsummarytotal"></div>
+              <div class="w-commerce-commercecheckoutsummarytotal">{{ item.data.total | formatPrice }}</div>
             </div>
           </fieldset>
         </div>
@@ -283,9 +283,9 @@
         <h4>Order Items</h4>
       </div>
       <div class="block-content">
-        <div class="collection-list-wrapper-3 w-dyn-list">
-          <div role="list" class="collection-list-10 w-dyn-items">
-            <div role="listitem" class="w-dyn-item">
+        {%- assign collectionId = "main" -%}{%- assign collection = collections["-6726d3ab"][collectionId] | limit: 5 -%}<div class="collection-list-wrapper-3 w-dyn-list">
+          {%- if collection.length > 0 -%}<div role="list" class="collection-list-10 w-dyn-items">
+            {%- for item in collection -%}<div role="listitem" class="w-dyn-item">
               <div class="order-items">
                 <div class="variations-main-wrapper">
                   <div class="mini-cart-featured-image"></div>
@@ -296,11 +296,11 @@
                 </div>
                 <div class="cart-quantity-3">1</div>
               </div>
-            </div>
-          </div>
-          <div class="w-dyn-empty">
+            </div>{%- endfor -%}
+          </div>{%- endif -%}
+          {%- unless collection.length > 0 -%}<div class="w-dyn-empty">
             <div>No items found.</div>
-          </div>
+          </div>{%- endunless -%}
         </div>
       </div>
     </div>

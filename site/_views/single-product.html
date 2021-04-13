@@ -47,7 +47,7 @@ display: none;
             <div class="cart">
               <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                 </a>
                 <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
                   <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
@@ -78,7 +78,7 @@ display: none;
                         <div class="w-commerce-commercecartfooter cart-footer">
                           <div class="w-commerce-commercecartlineitem cart-line-item">
                             <div class="size5-text-2">Subtotal</div>
-                            <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                            <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                           </div>
                           <div>
                             <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -141,11 +141,11 @@ display: none;
             <a href="#" class="link-block-13 w-inline-block"><img src="/static/images/search.svg" loading="lazy" width="40" alt=""></a>
           </div>
           <div class="cart">
-            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightDropdown" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
               <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
               </a>
-              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
+              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightDropdown cart-wrap">
                 <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
                   <div class="w-commerce-commercecartheader cart-header"><img src="/static/images/summerfriday.svg" width="180" alt="">
                     <h4 class="w-commerce-commercecartheading cart-heading-2">Your Cart</h4>
@@ -174,7 +174,7 @@ display: none;
                       <div class="w-commerce-commercecartfooter cart-footer">
                         <div class="w-commerce-commercecartlineitem cart-line-item">
                           <div class="size5-text-2">Subtotal</div>
-                          <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                          <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                         </div>
                         <div>
                           <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -217,7 +217,7 @@ display: none;
   <div class="pdpmain">
     <div class="leftproduct">
       <div class="productrow">
-        <div class="div-block-373"><img src="/static/" loading="lazy" alt="" class="image-66"></div>
+        <div class="div-block-373">{%- assign ref = item | resolveReference: "default-sku", "sku" -%}<img loading="lazy" src="{{ ref.data['main-image'].url | escape }}" alt="{{ ref.data['main-image'].alt | escape }}" class="image-66"></div>
         <div class="div-block-372">
           <div class="div-block-374"><img src="/static/images/Rectangle-6352x.png" loading="lazy" alt="" class="sideimage"></div>
           <div class="div-block-374"><img src="/static/images/Rectangle-6342x.png" loading="lazy" alt="" class="sideimage"></div>
@@ -232,7 +232,7 @@ display: none;
         </div>
       </div>
       <div class="product-head-wrapper">
-        <h1 class="product-title-head"></h1>
+        <h1 class="product-title-head">{{ item.data.name }}</h1>
         <div class="text-block-143">2.25 Fl oz</div>
         <div class="reviews">
           <div class="w-embed">
@@ -243,8 +243,8 @@ display: none;
       <div class="separator">
         <div class="div-block-348">
           <div class="div-block-349">
-            <div class="price-2"></div>
-            <div class="on-sale-wrapper"></div>
+            {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<div data-commerce-type="variation-price" class="price-2">{{ ref.data.price | formatPrice }}</div>
+            {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<div data-commerce-type="variation-price" class="on-sale-wrapper">{{ ref.data.price | formatPrice }}</div>
           </div>
           <div class="div-block-361">
             <div class="html-embed-3 w-embed">
@@ -256,7 +256,7 @@ display: none;
       <p class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. <br><br>Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. </p>
       <div class="product">
         <div>
-          <form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform">
+          {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform">{%- if item.data['sku-properties'] -%}<fieldset class="option-list-4" data-node-type="add-to-cart-option-list">{%- for prop in item.data['sku-properties'] -%}<fieldset class="option" data-node-type="add-to-cart-option" name="data-sku-property"><label class="field-label-27">{{ prop.name }}</label><select class="w-select" name="{{ prop.name }}">{% for option in prop.enum %}<option value="{{ option.name | slugify }}">{{option.name}}</option>{% endfor %}</select></fieldset>{%- endfor -%}</fieldset>{%- endif -%}
             <div class="variations">
               <div class="colorbox">
                 <div class="w-layout-grid box-color"><label class="color-label"></label></div>
@@ -299,24 +299,24 @@ display: none;
           </div>
           <h3 class="more-posts-heading">GET THE SET</h3>
           <div>
-            <div shop="collection-title" class="w-dyn-list">
-              <div role="list" class="w-dyn-items">
-                <div role="listitem" class="w-dyn-item">
+            {%- assign collectionId = "main" -%}{%- assign collection = collections["-672830c8"][collectionId] | limit: 2 -%}<div shop="collection-title" class="w-dyn-list">
+              {%- if collection.length > 0 -%}<div role="list" class="w-dyn-items">
+                {%- for item in collection -%}<div role="listitem" class="w-dyn-item">
                   <div class="relatedcollection">
                     <div class="w-layout-grid grid-15">
-                      <div><img src="/static/" loading="lazy" alt=""></div>
+                      <div>{%- assign ref = item | resolveReference: "default-sku", "sku" -%}<img loading="lazy" src="{{ ref.data['main-image'].url | escape }}" alt="{{ ref.data['main-image'].alt | escape }}"></div>
                       <div id="w-node-_9f1210fc-8a7b-f16d-5688-63dcfdf7e0a6-21bf91e0">
-                        <h4 class="heading-87"></h4>
-                        <div class="text-block-146"></div>
-                        <a href="#" class="button-learn w-button">Learn more</a>
+                        <h4 class="heading-87">{{ item.data.name }}</h4>
+                        <div class="text-block-146">{{ item.data.description }}</div>
+                        <a href="{{ item.url }}" class="button-learn w-button">Learn more</a>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="w-dyn-empty">
+                </div>{%- endfor -%}
+              </div>{%- endif -%}
+              {%- unless collection.length > 0 -%}<div class="w-dyn-empty">
                 <div>No items found.</div>
-              </div>
+              </div>{%- endunless -%}
             </div>
           </div>
         </div>
@@ -326,16 +326,16 @@ display: none;
   <div class="relatedbottom">
     <div>
       <h3 class="heading-76">Related Products</h3>
-      <div shop:products="recent-products" class="collection-pruduct-home w-dyn-list">
-        <div role="list" class="collection-list-home w-dyn-items">
-          <div role="listitem" class="w-dyn-item">
+      {%- assign collectionId = "main" -%}{%- assign collection = collections["-6727480a"][collectionId] | limit: 4 -%}<div shop:products="recent-products" class="collection-pruduct-home w-dyn-list">
+        {%- if collection.length > 0 -%}<div role="list" class="collection-list-home w-dyn-items">
+          {%- for item in collection -%}<div role="listitem" class="w-dyn-item">
             <div data-w-id="dec94b13-e2fb-3c94-16bc-b15756cb8515" class="collection-item__card-product">
-              <a href="#" class="card-product_wrapper-image w-inline-block"><img style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" src="/static/" alt="" class="wrapper-image__img"></a>
+              <a href="{{ item.url }}" class="card-product_wrapper-image w-inline-block">{%- assign ref = item | resolveReference: "default-sku", "sku" -%}<img style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" src="{{ ref.data['main-image'].url | escape }}" alt="{{ ref.data['main-image'].alt | escape }}" class="wrapper-image__img"></a>
               <div class="card-blog__wrapper-text">
-                <div class="link__text-2 blog"></div>
-                <h1 class="wrapper--text__title"></h1>
+                {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<div data-commerce-type="variation-price" class="link__text-2 blog">{{ ref.data.price | formatPrice }}</div>
+                <h1 class="wrapper--text__title">{{ item.data.name }}</h1>
                 <div>
-                  <form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform cartdefault4"><label for="quantity-4b15c280ea11e6a3b92d522c3eec69df-2" class="field-label-26">Quantity</label><input type="number" pattern="^[0-9]+$" inputmode="numeric" id="quantity-4b15c280ea11e6a3b92d522c3eec69df" name="commerce-add-to-cart-quantity-input" min="1" class="w-commerce-commerceaddtocartquantityinput cart4quantity" value="1"><input type="submit" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." value="Add to Cart" class="w-commerce-commerceaddtocartbutton button-6"><script type="application/json">{{ collections._variations[item.data.slug].variationsData | json }}</script></form>
+                  {%- assign ref = item | resolveReference: "default-sku", "sku" -%}<form data-node-type="commerce-add-to-cart-form" class="w-commerce-commerceaddtocartform cartdefault4">{%- if item.data['sku-properties'] -%}<fieldset class="option-list-3" data-node-type="add-to-cart-option-list">{%- for prop in item.data['sku-properties'] -%}<fieldset data-node-type="add-to-cart-option" name="data-sku-property"><label>{{ prop.name }}</label><select class="w-select" name="{{ prop.name }}">{% for option in prop.enum %}<option value="{{ option.name | slugify }}">{{option.name}}</option>{% endfor %}</select></fieldset>{%- endfor -%}</fieldset>{%- endif -%}<label for="quantity-4b15c280ea11e6a3b92d522c3eec69df-2" class="field-label-26">Quantity</label><input type="number" pattern="^[0-9]+$" inputmode="numeric" id="quantity-4b15c280ea11e6a3b92d522c3eec69df" name="commerce-add-to-cart-quantity-input" min="1" class="w-commerce-commerceaddtocartquantityinput cart4quantity" value="1"><input type="submit" data-node-type="commerce-add-to-cart-button" data-loading-text="Adding to cart..." value="Add to Cart" class="w-commerce-commerceaddtocartbutton button-6"><script type="application/json">{{ collections._variations[item.data.slug].variationsData | json }}</script></form>
                   <div style="display:none" class="w-commerce-commerceaddtocartoutofstock">
                     <div>This product is out of stock.</div>
                   </div>
@@ -345,11 +345,11 @@ display: none;
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endif -%}
+        {%- unless collection.length > 0 -%}<div class="w-dyn-empty">
           <div>No items found.</div>
-        </div>
+        </div>{%- endunless -%}
       </div>
     </div>
   </div>

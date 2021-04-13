@@ -45,7 +45,7 @@
             <div class="cart">
               <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                 </a>
                 <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
                   <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
@@ -76,7 +76,7 @@
                         <div class="w-commerce-commercecartfooter cart-footer">
                           <div class="w-commerce-commercecartlineitem cart-line-item">
                             <div class="size5-text-2">Subtotal</div>
-                            <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                            <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                           </div>
                           <div>
                             <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -139,11 +139,11 @@
             <a href="#" class="link-block-13 w-inline-block"><img src="/static/images/search.svg" loading="lazy" width="40" alt=""></a>
           </div>
           <div class="cart">
-            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+            <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightDropdown" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
               <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
               </a>
-              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
+              <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightDropdown cart-wrap">
                 <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
                   <div class="w-commerce-commercecartheader cart-header"><img src="/static/images/summerfriday.svg" width="180" alt="">
                     <h4 class="w-commerce-commercecartheading cart-heading-2">Your Cart</h4>
@@ -172,7 +172,7 @@
                       <div class="w-commerce-commercecartfooter cart-footer">
                         <div class="w-commerce-commercecartlineitem cart-line-item">
                           <div class="size5-text-2">Subtotal</div>
-                          <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                          <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                         </div>
                         <div>
                           <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -204,25 +204,25 @@
   <div style="display:none" class="main">
     <div class="post-summary">
       <div class="container-text-blog">
-        <div class="blog__rich-text w-richtext"></div>
+        <div class="blog__rich-text w-richtext">{{ item.templateContent }}</div>
       </div>
     </div>
     <div data-w-id="faa51abe-4056-d31f-21ca-0d057a2e729a" style="opacity:0" class="related-posts">
-      <div blog:articles="related-posts" class="blog__collection-list-wrapper w-dyn-list">
-        <div role="list" class="blog__collection-list w-dyn-items">
-          <div role="listitem" class="blog__collection-item w-dyn-item">
+      {%- assign collectionId = "main" -%}{%- assign collection = collections["-6c917f96"][collectionId] | limit: 3 -%}<div blog:articles="related-posts" class="blog__collection-list-wrapper w-dyn-list">
+        {%- if collection.length > 0 -%}<div role="list" class="blog__collection-list w-dyn-items">
+          {%- for item in collection -%}<div role="listitem" class="blog__collection-item w-dyn-item">
             <a data-w-id="ef4282f0-30f1-1383-ceaf-cf88a3a31612" href="#" class="collection-item__card-blog w-inline-block">
-              <div class="card-blog__wrapper-image"><img style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" src="/static/" alt="" class="wrapper-image__img"></div>
+              <div class="card-blog__wrapper-image"><img style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" src="{{ item.data['main-image'].url | escape }}" alt="{{ item.data['main-image'].alt | escape }}" class="wrapper-image__img"></div>
               <div class="card-blog__wrapper-text">
-                <h1 class="wrapper--text__title"></h1>
-                <div class="link__text-2 blog"></div>
+                <h1 class="wrapper--text__title">{{ item.data.name }}</h1>
+                <div class="link__text-2 blog">{{ item.data['created-on'] | formatDate: "MMMM D, YYYY" }}</div>
               </div>
             </a>
-          </div>
-        </div>
-        <div class="empty-state-4 w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endif -%}
+        {%- unless collection.length > 0 -%}<div class="empty-state-4 w-dyn-empty">
           <div>No items found.</div>
-        </div>
+        </div>{%- endunless -%}
       </div>
     </div>
     <div class="footer">

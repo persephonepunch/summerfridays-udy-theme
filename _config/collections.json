@@ -1,1 +1,51 @@
-{}
+{
+  "-672830c8": {
+    "collection": "product",
+    "query": {
+      "offset": 0,
+      "limit": 2
+    }
+  },
+  "-6727480a": {
+    "collection": "product",
+    "query": {
+      "offset": 0,
+      "limit": 4
+    }
+  },
+  "ee1013c": {
+    "collection": "product",
+    "paginationLimit": 5,
+    "query": {
+      "offset": 0,
+      "limit": 8
+    }
+  },
+  "-6726d3ab": {
+    "collection": "product",
+    "query": {
+      "offset": 0,
+      "limit": 5
+    }
+  },
+  "-6c917f96": {
+    "collection": "post",
+    "query": {
+      "offset": 0,
+      "limit": 3
+    }
+  },
+  "2f67365c": {
+    "collection": "product"
+  },
+  "-6c926854": {
+    "collection": "post",
+    "query": {
+      "offset": 0,
+      "limit": 1
+    }
+  },
+  "1f4a07e9": {
+    "collection": "post"
+  }
+}

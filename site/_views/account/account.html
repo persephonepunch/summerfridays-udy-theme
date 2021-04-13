@@ -41,7 +41,7 @@
               <div class="cart">
                 <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                   <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                    <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                    <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                   </a>
                   <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
                     <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
@@ -72,7 +72,7 @@
                           <div class="w-commerce-commercecartfooter cart-footer">
                             <div class="w-commerce-commercecartlineitem cart-line-item">
                               <div class="size5-text-2">Subtotal</div>
-                              <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                              <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                             </div>
                             <div>
                               <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -135,11 +135,11 @@
               <a href="#" class="link-block-13 w-inline-block"><img src="/static/images/search.svg" loading="lazy" width="40" alt=""></a>
             </div>
             <div class="cart">
-              <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="modal" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+              <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightDropdown" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button-2 w-inline-block">
-                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">0</div>
+                  <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item.data.userItemsCount }}</div>
                 </a>
-                <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-modal cart-wrap">
+                <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightDropdown cart-wrap">
                   <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
                     <div class="w-commerce-commercecartheader cart-header"><img src="/static/images/summerfriday.svg" width="180" alt="">
                       <h4 class="w-commerce-commercecartheading cart-heading-2">Your Cart</h4>
@@ -168,7 +168,7 @@
                         <div class="w-commerce-commercecartfooter cart-footer">
                           <div class="w-commerce-commercecartlineitem cart-line-item">
                             <div class="size5-text-2">Subtotal</div>
-                            <div class="w-commerce-commercecartordervalue size6-text-2"></div>
+                            <div class="w-commerce-commercecartordervalue size6-text-2">{{ item.data.subtotal | formatPrice }}</div>
                           </div>
                           <div>
                             <div data-node-type="commerce-cart-quick-checkout-actions" class="web-payments-2">
@@ -219,9 +219,9 @@
             <div class="item-total-header">Total</div>
           </div>
         </div>
-        <div account="orders" class="orders---copy-this w-dyn-list">
-          <div role="list" class="collection-list-9 w-dyn-items">
-            <div role="listitem" class="address-collection-item w-dyn-item">
+        {%- assign collectionId = "main" -%}{%- assign collection = collections["2f67365c"][collectionId] -%}<div account="orders" class="orders---copy-this w-dyn-list">
+          {%- if collection.length > 0 -%}<div role="list" class="collection-list-9 w-dyn-items">
+            {%- for item in collection -%}<div role="listitem" class="address-collection-item w-dyn-item">
               <div class="order-row---copy-this">
                 <div class="order-numebr-footer">
                   <a href="#" class="item-link---copy-this w-inline-block">
@@ -241,11 +241,11 @@
                   <div class="item-total---copy-this">$2.500</div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="empty-state-6 w-dyn-empty">
+            </div>{%- endfor -%}
+          </div>{%- endif -%}
+          {%- unless collection.length > 0 -%}<div class="empty-state-6 w-dyn-empty">
             <div class="div-block-39"></div>
-          </div>
+          </div>{%- endunless -%}
         </div>
       </div>
     </div>

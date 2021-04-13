@@ -897,6 +897,7 @@ var _exportNames = {
   INFINITE_INVENTORY: true,
   MAX_TOTAL_ORDER_PRICE: true,
   MAX_PRODUCT_DIMENSION: true,
+  MAX_MEMBERSHIP_PRODUCTS: true,
   PRICE_TEMPLATE_CURRENCY_SYMBOL: true,
   PRICE_TEMPLATE_AMOUNT: true,
   PRICE_TEMPLATE_CURRENCY_CODE: true,
@@ -924,7 +925,7 @@ var _exportNames = {
   REQUIRED_DISCOUNT_IMPORT_FIELDS: true,
   STRIPE_DISCONNECT_SUBSCRIPTIONS_ERROR_MESSAGE: true
 };
-exports.STRIPE_DISCONNECT_SUBSCRIPTIONS_ERROR_MESSAGE = exports.REQUIRED_DISCOUNT_IMPORT_FIELDS = exports.DISCOUNTS_CSV_IMPORT_EXPORT_COLUMNS = exports.DEFAULT_PRODUCT_TYPE_ID = exports.PRODUCT_TYPE_HELP_TEXT = exports.TEMPLATE_PRODUCT_TYPES = exports.ADVANCED_PRODUCT_TYPE = exports.MEMBERSHIP_PRODUCT_TYPE = exports.SERVICE_PRODUCT_TYPE = exports.DIGITAL_PRODUCT_TYPE = exports.PHYSICAL_PRODUCT_TYPE = exports.BILLING_METHOD_TYPES = exports.ECOMMERCE_PROVIDER_NAME_ENUM = exports.STRIPE_SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_INTERVAL_ENUM = exports.DOWNLOAD_FILES_EDITABLE_FIELDS = exports.DOWNLOAD_FILES_KEY_PATH = exports.DOWNLOAD_FILES_FAKE_DATA = exports.CSV_INTEGRATION_CURRENCY_TEMPLATE = exports.CSV_CURRENCY_TEMPLATE = exports.DEFAULT_PRICE_TEMPLATE_VALUE = exports.PRICE_TEMPLATE_OPTIONS = exports.PRICE_TEMPLATE_CURRENCY_CODE = exports.PRICE_TEMPLATE_AMOUNT = exports.PRICE_TEMPLATE_CURRENCY_SYMBOL = exports.MAX_PRODUCT_DIMENSION = exports.MAX_TOTAL_ORDER_PRICE = exports.INFINITE_INVENTORY = exports.INVENTORY_TYPE_INFINITE = exports.INVENTORY_TYPE_FINITE = exports.SHIPPING_METHODS = exports.ORDER_ID_RE = void 0;
+exports.STRIPE_DISCONNECT_SUBSCRIPTIONS_ERROR_MESSAGE = exports.REQUIRED_DISCOUNT_IMPORT_FIELDS = exports.DISCOUNTS_CSV_IMPORT_EXPORT_COLUMNS = exports.DEFAULT_PRODUCT_TYPE_ID = exports.PRODUCT_TYPE_HELP_TEXT = exports.TEMPLATE_PRODUCT_TYPES = exports.ADVANCED_PRODUCT_TYPE = exports.MEMBERSHIP_PRODUCT_TYPE = exports.SERVICE_PRODUCT_TYPE = exports.DIGITAL_PRODUCT_TYPE = exports.PHYSICAL_PRODUCT_TYPE = exports.BILLING_METHOD_TYPES = exports.ECOMMERCE_PROVIDER_NAME_ENUM = exports.STRIPE_SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_STATUS_ENUM = exports.SUBSCRIPTION_INTERVAL_ENUM = exports.DOWNLOAD_FILES_EDITABLE_FIELDS = exports.DOWNLOAD_FILES_KEY_PATH = exports.DOWNLOAD_FILES_FAKE_DATA = exports.CSV_INTEGRATION_CURRENCY_TEMPLATE = exports.CSV_CURRENCY_TEMPLATE = exports.DEFAULT_PRICE_TEMPLATE_VALUE = exports.PRICE_TEMPLATE_OPTIONS = exports.PRICE_TEMPLATE_CURRENCY_CODE = exports.PRICE_TEMPLATE_AMOUNT = exports.PRICE_TEMPLATE_CURRENCY_SYMBOL = exports.MAX_MEMBERSHIP_PRODUCTS = exports.MAX_PRODUCT_DIMENSION = exports.MAX_TOTAL_ORDER_PRICE = exports.INFINITE_INVENTORY = exports.INVENTORY_TYPE_INFINITE = exports.INVENTORY_TYPE_FINITE = exports.SHIPPING_METHODS = exports.ORDER_ID_RE = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(3));
 
@@ -975,6 +976,8 @@ var MAX_TOTAL_ORDER_PRICE = 99999999;
 exports.MAX_TOTAL_ORDER_PRICE = MAX_TOTAL_ORDER_PRICE;
 var MAX_PRODUCT_DIMENSION = 9000000000000000;
 exports.MAX_PRODUCT_DIMENSION = MAX_PRODUCT_DIMENSION;
+var MAX_MEMBERSHIP_PRODUCTS = 20;
+exports.MAX_MEMBERSHIP_PRODUCTS = MAX_MEMBERSHIP_PRODUCTS;
 
 function _withDerivedValue(_ref) {
   var label = _ref.label,
@@ -36235,6 +36238,15 @@ function convertPaypalAmountToWFPrice(a) {
     unknown: 'unknown'
   };
   api.NUX_TEMPLATE_NAME = 'NUX Guided Creation Template';
+  api.nuxTemplate = {
+    name: api.NUX_TEMPLATE_NAME,
+    type: 'basic',
+    cost: 0,
+    starter: false // TODO: uncomment this to enable all NUX sites to be tutorials (only once
+    // the skip/restart experiment is over)
+    // tutorial: 'nux',
+
+  };
   api.blankTemplate = {
     name: 'Blank Site',
     description: 'Start from a blank canvas — and build exactly what you’re envisioning.',
@@ -36269,7 +36281,108 @@ function convertPaypalAmountToWFPrice(a) {
     SI: /SI\d{8}/,
     SK: /SK\d{10}/,
     XI: /XI(?:\d{3}[- ]*\d{4}[- ]*\d{2}(?:[- ]*\d{3})?|(?:GD|HA)\d{3})/
-  }; // TODO: [Showcase Collections] This is only Proof-of-Concept. Values
+  };
+  /**
+   * Verify if the matching country and VAT value passes
+   * a light regex format validation.
+   *
+   * @param {string} countryCode 2 value country code
+   * @param {string} vat tax vat value to validate
+   * @returns Boolean
+   */
+
+  api.verifyVat = function (params) {
+    var regex = api.vatVerifiers[params.countryCode];
+
+    if (!regex) {
+      return true;
+    }
+
+    return new RegExp(regex, 'i').test(params.vat);
+  };
+
+  api.euVatSupportedCountries = [{
+    code: 'AT',
+    country: 'Austria'
+  }, {
+    code: 'BE',
+    country: 'Belgium'
+  }, {
+    code: 'BG',
+    country: 'Bulgaria'
+  }, {
+    code: 'CY',
+    country: 'Cyprus'
+  }, {
+    code: 'CZ',
+    country: 'Czech Republic'
+  }, {
+    code: 'DE',
+    country: 'Germany'
+  }, {
+    code: 'DK',
+    country: 'Denmark'
+  }, {
+    code: 'EE',
+    country: 'Estonia'
+  }, {
+    code: 'EL',
+    country: 'Greece'
+  }, {
+    code: 'ES',
+    country: 'Spain'
+  }, {
+    code: 'FI',
+    country: 'Finland'
+  }, {
+    code: 'FR',
+    country: 'France '
+  }, {
+    code: 'HR',
+    country: 'Croatia'
+  }, {
+    code: 'HU',
+    country: 'Hungary'
+  }, {
+    code: 'IE',
+    country: 'Ireland'
+  }, {
+    code: 'IT',
+    country: 'Italy'
+  }, {
+    code: 'LT',
+    country: 'Lithuania'
+  }, {
+    code: 'LU',
+    country: 'Luxembourg'
+  }, {
+    code: 'LV',
+    country: 'Latvia'
+  }, {
+    code: 'MT',
+    country: 'Malta'
+  }, {
+    code: 'NL',
+    country: 'The Netherlands'
+  }, {
+    code: 'PL',
+    country: 'Poland'
+  }, {
+    code: 'PT',
+    country: 'Portugal'
+  }, {
+    code: 'RO',
+    country: 'Romania'
+  }, {
+    code: 'SE',
+    country: 'Sweden'
+  }, {
+    code: 'SI',
+    country: 'Slovenia'
+  }, {
+    code: 'SK',
+    country: 'Slovakia'
+  }]; // TODO: [Showcase Collections] This is only Proof-of-Concept. Values
   //  hardcoded here should be refined and, later on, defined in a database.
 
   api.showcaseCollectionsConfig = {
@@ -36372,6 +36485,7 @@ function convertPaypalAmountToWFPrice(a) {
     target.WEBFLOW_NODE_ID_PATH_ATTR = api.WEBFLOW_NODE_ID_PATH_ATTR;
     target.allowedTypoContentTags = api.allowedTypoContentTags;
     target.blankTemplate = api.blankTemplate;
+    target.nuxTemplate = api.nuxTemplate;
     target.collectionPresets = api.collectionPresets;
     target.commerceCountryList = api.commerceCountryList;
     target.commerceCurrencyLocales = api.commerceCurrencyLocales;
@@ -36410,7 +36524,8 @@ function convertPaypalAmountToWFPrice(a) {
     target.stripeCountryCodes = api.stripeCountryCodes;
     target.stripeCurrencyCodes = api.stripeCurrencyCodes;
     target.stripeCurrencyList = api.stripeCurrencyList;
-    target.vatVerifiers = api.vatVerifiers;
+    target.verifyVat = api.verifyVat;
+    target.euVatSupportedCountries = api.euVatSupportedCountries;
     target.webflowNodeInstanceIdAttr = api.webflowNodeInstanceIdAttr;
     target.showcaseCollectionsConfig = api.showcaseCollectionsConfig;
   } // Export commonjs module
