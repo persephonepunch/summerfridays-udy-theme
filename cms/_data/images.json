@@ -55,16 +55,60 @@
     "url": "/assets/images/closecart2x_1closecart2x.png",
     "alt": ""
   },
-  "-6136275f": {
-    "url": "/assets/images/rectangle-6352x.png",
+  "1a908bf4": {
+    "url": "/assets/images/text-btn-arrow1x.png",
     "alt": ""
   },
-  "69e39d60": {
-    "url": "/assets/images/rectangle-6342x.png",
+  "-177478b9": {
+    "url": "/assets/images/home-hero2x.jpg",
+    "alt": ""
+  },
+  "-6176734e": {
+    "url": "/assets/images/rectangle-12x.jpg",
     "alt": ""
   },
   "-5c8d9260": {
     "url": "/assets/images/rectangle-6562x.png",
+    "alt": ""
+  },
+  "444aaae4": {
+    "url": "/assets/images/rectangle-5491x.png",
+    "alt": ""
+  },
+  "-4c6a6b02": {
+    "url": "/assets/images/leftarrow.svg",
+    "alt": ""
+  },
+  "-50d19d03": {
+    "url": "/assets/images/rightarrow.svg",
+    "alt": ""
+  },
+  "2004e5a1": {
+    "url": "/assets/images/group-3742x.jpg",
+    "alt": ""
+  },
+  "-2e316df2": {
+    "url": "/assets/images/rectangle-962x.jpg",
+    "alt": ""
+  },
+  "-49c790e1": {
+    "url": "/assets/images/group-3722x.jpg",
+    "alt": ""
+  },
+  "48791c67": {
+    "url": "/assets/external/6061296189b0efa110c423ee_rectangle-546401x.png",
+    "alt": ""
+  },
+  "-18dd464e": {
+    "url": "/assets/external/606129618c5edc117e95d649_rectangle-547401x.png",
+    "alt": ""
+  },
+  "7569f679": {
+    "url": "/assets/external/606129628165d5509ce16c70_rectangle-548401x.png",
+    "alt": ""
+  },
+  "-2c54f007": {
+    "url": "/assets/external/606129618e5566bdf712cb44_rectangle-549401x.png",
     "alt": ""
   },
   "63d3600f": {
@@ -77,6 +121,14 @@
   },
   "36c5e456": {
     "url": "/assets/images/facebook.svg",
+    "alt": ""
+  },
+  "-6136275f": {
+    "url": "/assets/images/rectangle-6352x.png",
+    "alt": ""
+  },
+  "69e39d60": {
+    "url": "/assets/images/rectangle-6342x.png",
     "alt": ""
   },
   "-4f9afb37": {
@@ -101,6 +153,14 @@
   },
   "-386696bf": {
     "url": "/assets/external/5beac8ffed94f5c015f87bb8_x.svg",
+    "alt": ""
+  },
+  "-31363271": {
+    "url": "/assets/external/5de9029110e9954c481495c3_trash.main.svg",
+    "alt": ""
+  },
+  "-1ddc9548": {
+    "url": "/assets/external/5ec7d26e528af0102412ac06_imani-clovis-234736-unsplash.jpg",
     "alt": ""
   },
   "-446a97bd": {
@@ -137,66 +197,6 @@
   },
   "b5a20df": {
     "url": "/assets/images/rectangle-11161x.png",
-    "alt": ""
-  },
-  "48791c67": {
-    "url": "/assets/external/6061296189b0efa110c423ee_rectangle-546401x.png",
-    "alt": ""
-  },
-  "-18dd464e": {
-    "url": "/assets/external/606129618c5edc117e95d649_rectangle-547401x.png",
-    "alt": ""
-  },
-  "7569f679": {
-    "url": "/assets/external/606129628165d5509ce16c70_rectangle-548401x.png",
-    "alt": ""
-  },
-  "-2c54f007": {
-    "url": "/assets/external/606129618e5566bdf712cb44_rectangle-549401x.png",
-    "alt": ""
-  },
-  "1a908bf4": {
-    "url": "/assets/images/text-btn-arrow1x.png",
-    "alt": ""
-  },
-  "-177478b9": {
-    "url": "/assets/images/home-hero2x.jpg",
-    "alt": ""
-  },
-  "-6176734e": {
-    "url": "/assets/images/rectangle-12x.jpg",
-    "alt": ""
-  },
-  "444aaae4": {
-    "url": "/assets/images/rectangle-5491x.png",
-    "alt": ""
-  },
-  "-4c6a6b02": {
-    "url": "/assets/images/leftarrow.svg",
-    "alt": ""
-  },
-  "-50d19d03": {
-    "url": "/assets/images/rightarrow.svg",
-    "alt": ""
-  },
-  "2004e5a1": {
-    "url": "/assets/images/group-3742x.jpg",
-    "alt": ""
-  },
-  "-2e316df2": {
-    "url": "/assets/images/rectangle-962x.jpg",
-    "alt": ""
-  },
-  "-49c790e1": {
-    "url": "/assets/images/group-3722x.jpg",
-    "alt": ""
-  },
-  "-31363271": {
-    "url": "/assets/external/5de9029110e9954c481495c3_trash.main.svg",
-    "alt": ""
-  },
-  "-1ddc9548": {
-    "url": "/assets/external/5ec7d26e528af0102412ac06_imani-clovis-234736-unsplash.jpg",
     "alt": ""
   }
 }
