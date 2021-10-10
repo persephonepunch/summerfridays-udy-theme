@@ -650,74 +650,78 @@ collections:
             label: Text
             name: '-509a509d'
             widget: string
-          - hint: 'Original text: JET LAG MASK, key: -33fda55f'
+          - hint: 'Original text: Message, key: -63dc6819'
             label: Text
-            name: '-33fda55f'
+            name: '-63dc6819'
             widget: string
-          - hint: 'Original text: Learn more, key: -52aefc2f'
+          - hint: 'Original text: SALE, key: 26b847'
             label: Text
-            name: '-52aefc2f'
+            name: 26b847
             widget: string
-          - hint: 'Original text: PRODUCT 2, key: 67666521'
+          - hint: 'Original text: 2.25 Fl oz, key: -2d0fce7c'
             label: Text
-            name: '67666521'
-            widget: string
-          - hint: 'Original text: LOREM IPSUM, key: 3830da5b'
-            label: Text
-            name: 3830da5b
+            name: '-2d0fce7c'
             widget: string
           - hint: >-
-              Original text: Lorem ipsum dolor sit amet, consetetur sadipscing
-              elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-              magna aliquyam erat, sed diam voluptua., key: 316c7bbc
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat. Aenean faucibus nibh et justo
+              cursus id rutrum lorem imperdiet. , key: 2fd1ddc2
             label: Text
-            name: 316c7bbc
+            name: 2fd1ddc2
             widget: text
-          - hint: 'Original text: New Collection, key: 2a76c15e'
+          - hint: >-
+              Original text: Duis cursus, mi quis viverra ornare, eros dolor
+              interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus
+              nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae
+              risus tristique posuere.Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Suspendisse varius enim in eros elementum
+              tristique. , key: -68e6f552
             label: Text
-            name: 2a76c15e
+            name: '-68e6f552'
+            widget: text
+          - hint: 'Original text: Variant Option, key: 404ae8b0'
+            label: Text
+            name: 404ae8b0
             widget: string
-          - hint: 'Original text: Buy now, key: 71bb9a1c'
+          - hint: 'Original text: Quantity, key: -48bd3755'
             label: Text
-            name: 71bb9a1c
+            name: '-48bd3755'
             widget: string
           - hint: 'Original text: This product is out of stock., key: 7aaa2dac'
             label: Text
             name: 7aaa2dac
             widget: string
-          - hint: 'Original text: THE TIME SAVING MULTI-TASKER, key: 15651ea8'
+          - hint: 'Original text: how to use, key: 3a140432'
             label: Text
-            name: 15651ea8
+            name: 3a140432
             widget: string
-          - hint: 'Original text: Learn More, key: -52bd880f'
+          - hint: 'Original text: Ingredients, key: -19fa8f5e'
             label: Text
-            name: '-52bd880f'
-            widget: string
-          - hint: 'Original text: SHOP OUR INSTAGRAM, key: 620c07f4'
-            label: Text
-            name: 620c07f4
-            widget: string
-          - hint: 'Original text: @summerfridays, key: 26a49c25'
-            label: Text
-            name: 26a49c25
-            widget: string
-          - hint: 'Original text: Shop the feed, key: -55a42249'
-            label: Text
-            name: '-55a42249'
-            widget: string
-          - hint: 'Original text: SKINCARE QUIZ, key: 1099d927'
-            label: Text
-            name: 1099d927
+            name: '-19fa8f5e'
             widget: string
           - hint: >-
-              Original text: Quiz ipsum dolor sit met, consetetur sadipscing
-              elitr, sed diam nonumy., key: -30750af5
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat. Aenean faucibus nibh et justo
+              cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus
+              tristique posuere., key: -5286fc08
             label: Text
-            name: '-30750af5'
+            name: '-5286fc08'
+            widget: text
+          - hint: 'Original text: GET THE SET, key: -5fe866f7'
+            label: Text
+            name: '-5fe866f7'
             widget: string
-          - hint: 'Original text: Take the quiz, key: -6fb20c03'
+          - hint: 'Original text: Learn more, key: -52aefc2f'
             label: Text
-            name: '-6fb20c03'
+            name: '-52aefc2f'
+            widget: string
+          - hint: 'Original text: Related Products, key: 557e3df9'
+            label: Text
+            name: 557e3df9
             widget: string
           - hint: 'Original text: SULFATE-FREE, key: 331d5043'
             label: Text
@@ -837,71 +841,6 @@ collections:
             label: Text
             name: '-121a51dd'
             widget: string
-          - hint: 'Original text: Message, key: -63dc6819'
-            label: Text
-            name: '-63dc6819'
-            widget: string
-          - hint: 'Original text: SALE, key: 26b847'
-            label: Text
-            name: 26b847
-            widget: string
-          - hint: 'Original text: 2.25 Fl oz, key: -2d0fce7c'
-            label: Text
-            name: '-2d0fce7c'
-            widget: string
-          - hint: >-
-              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Suspendisse varius enim in eros elementum tristique. Duis
-              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
-              commodo diam libero vitae erat. Aenean faucibus nibh et justo
-              cursus id rutrum lorem imperdiet. , key: 2fd1ddc2
-            label: Text
-            name: 2fd1ddc2
-            widget: text
-          - hint: >-
-              Original text: Duis cursus, mi quis viverra ornare, eros dolor
-              interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus
-              nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae
-              risus tristique posuere.Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Suspendisse varius enim in eros elementum
-              tristique. , key: -68e6f552
-            label: Text
-            name: '-68e6f552'
-            widget: text
-          - hint: 'Original text: Variant Option, key: 404ae8b0'
-            label: Text
-            name: 404ae8b0
-            widget: string
-          - hint: 'Original text: Quantity, key: -48bd3755'
-            label: Text
-            name: '-48bd3755'
-            widget: string
-          - hint: 'Original text: how to use, key: 3a140432'
-            label: Text
-            name: 3a140432
-            widget: string
-          - hint: 'Original text: Ingredients, key: -19fa8f5e'
-            label: Text
-            name: '-19fa8f5e'
-            widget: string
-          - hint: >-
-              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Suspendisse varius enim in eros elementum tristique. Duis
-              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
-              commodo diam libero vitae erat. Aenean faucibus nibh et justo
-              cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus
-              tristique posuere., key: -5286fc08
-            label: Text
-            name: '-5286fc08'
-            widget: text
-          - hint: 'Original text: GET THE SET, key: -5fe866f7'
-            label: Text
-            name: '-5fe866f7'
-            widget: string
-          - hint: 'Original text: Related Products, key: 557e3df9'
-            label: Text
-            name: 557e3df9
-            widget: string
           - hint: 'Original text: Category name, key: 40574c4d'
             label: Text
             name: 40574c4d
@@ -970,6 +909,10 @@ collections:
           - hint: 'Original text: Block Quote, key: 3f3470e9'
             label: Text
             name: 3f3470e9
+            widget: string
+          - hint: 'Original text: Shop the feed, key: -55a42249'
+            label: Text
+            name: '-55a42249'
             widget: string
           - hint: 'Original text: Terms and conditions, key: e666c7a'
             label: Text
@@ -1379,6 +1322,18 @@ collections:
             label: Text
             name: 7bb4b2d5
             widget: text
+          - hint: 'Original text: Learn More, key: -52bd880f'
+            label: Text
+            name: '-52bd880f'
+            widget: string
+          - hint: 'Original text: SHOP OUR INSTAGRAM, key: 620c07f4'
+            label: Text
+            name: 620c07f4
+            widget: string
+          - hint: 'Original text: @summerfridays, key: 26a49c25'
+            label: Text
+            name: 26a49c25
+            widget: string
           - hint: >-
               Original text: Marianna Hewitt + Lauren Gores Ireland, key:
               -17a28e55
@@ -1462,6 +1417,51 @@ collections:
             label: Text
             name: '-10d26d54'
             widget: string
+          - hint: 'Original text: JET LAG MASK, key: -33fda55f'
+            label: Text
+            name: '-33fda55f'
+            widget: string
+          - hint: 'Original text: PRODUCT 2, key: 67666521'
+            label: Text
+            name: '67666521'
+            widget: string
+          - hint: 'Original text: LOREM IPSUM, key: 3830da5b'
+            label: Text
+            name: 3830da5b
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consetetur sadipscing
+              elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+              magna aliquyam erat, sed diam voluptua., key: 316c7bbc
+            label: Text
+            name: 316c7bbc
+            widget: text
+          - hint: 'Original text: New Collection, key: 2a76c15e'
+            label: Text
+            name: 2a76c15e
+            widget: string
+          - hint: 'Original text: Buy now, key: 71bb9a1c'
+            label: Text
+            name: 71bb9a1c
+            widget: string
+          - hint: 'Original text: THE TIME SAVING MULTI-TASKER, key: 15651ea8'
+            label: Text
+            name: 15651ea8
+            widget: string
+          - hint: 'Original text: SKINCARE QUIZ, key: 1099d927'
+            label: Text
+            name: 1099d927
+            widget: string
+          - hint: >-
+              Original text: Quiz ipsum dolor sit met, consetetur sadipscing
+              elitr, sed diam nonumy., key: -30750af5
+            label: Text
+            name: '-30750af5'
+            widget: string
+          - hint: 'Original text: Take the quiz, key: -6fb20c03'
+            label: Text
+            name: '-6fb20c03'
+            widget: string
       - label: Links
         name: links
         file: cms/_data/links.json
@@ -1482,10 +1482,6 @@ collections:
             label: Link
             name: 2f
             widget: string
-          - hint: 'Original link: /checkout, key: -6bd4518b'
-            label: Link
-            name: '-6bd4518b'
-            widget: string
           - hint: 'Original link: #top, key: 11aa52'
             label: Link
             name: 11aa52
@@ -1501,6 +1497,10 @@ collections:
           - hint: 'Original link: /account/register, key: a0cea74'
             label: Link
             name: a0cea74
+            widget: string
+          - hint: 'Original link: /checkout, key: -6bd4518b'
+            label: Link
+            name: '-6bd4518b'
             widget: string
       - label: Images
         name: images
@@ -1667,7 +1667,7 @@ collections:
                 widget: string
                 required: false
           - label: Image
-            name: 1a908bf4
+            name: '-6136275f'
             widget: object
             fields:
               - name: url
@@ -1680,20 +1680,7 @@ collections:
                 widget: string
                 required: false
           - label: Image
-            name: '-177478b9'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-6176734e'
+            name: 69e39d60
             widget: object
             fields:
               - name: url
@@ -1707,149 +1694,6 @@ collections:
                 required: false
           - label: Image
             name: '-5c8d9260'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: 444aaae4
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-4c6a6b02'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-50d19d03'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: 2004e5a1
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-2e316df2'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-49c790e1'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '16185092'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: 48791c67
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-18dd464e'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: 7569f679
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-2c54f007'
             widget: object
             fields:
               - name: url
@@ -1902,32 +1746,6 @@ collections:
                 required: false
           - label: Image
             name: 36c5e456
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-6136275f'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: 69e39d60
             widget: object
             fields:
               - name: url
@@ -2032,6 +1850,58 @@ collections:
                 required: false
           - label: Image
             name: '-1ddc9548'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 48791c67
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-18dd464e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7569f679
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2c54f007'
             widget: object
             fields:
               - name: url
@@ -2149,6 +2019,136 @@ collections:
                 required: false
           - label: Image
             name: b5a20df
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1a908bf4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-177478b9'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6176734e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 444aaae4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4c6a6b02'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-50d19d03'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2004e5a1
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2e316df2'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-49c790e1'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '16185092'
             widget: object
             fields:
               - name: url
