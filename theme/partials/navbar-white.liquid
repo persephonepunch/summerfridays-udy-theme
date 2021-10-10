@@ -1,0 +1,79 @@
+<div data-animation="default" class="navbar1 active-nav1 white w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" data-duration="400">
+      <div class="leftmenu">
+        <div class="nav1-menu-wrap">
+          <nav role="navigation" mega-menu="megamenu" class="megamenu w-nav-menu">
+            <a href="{{ links.23 }}" class="headerlink w-nav-link">{{ texts.2268ff }}</a>
+            <div data-hover="false" data-delay="0" class="w-dropdown">
+              <div class="dropdown-toggle-2 w-dropdown-toggle">
+                <div class="w-icon-dropdown-toggle"></div>
+                <div class="headerlink">{{ texts.-15e657cf }}</div>
+              </div>
+              <nav class="dropdown-list w-dropdown-list">
+                <a href="{{ links.23 }}" class="dropdown-link w-dropdown-link">{{ texts.-78547655 }}</a>
+                <a href="{{ links.23 }}" class="dropdown-link w-dropdown-link">{{ texts.-78547654 }}</a>
+                <a href="{{ links.23 }}" class="dropdown-link w-dropdown-link">{{ texts.-78547653 }}</a>
+              </nav>
+            </div>
+          </nav>
+          <div class="menu-button w-nav-button">{%- image images.633595e8.url, images.633595e8.alt, '[]', 'width="15" class="menu-icon"' -%}</div>
+        </div>
+      </div>
+      <div>{%- image images.-65a9cd77.url, images.-65a9cd77.alt, '[]', 'class="image"' -%}</div>
+      <div class="leftblock">
+        <a href="{{ links.23 }}" menu="rightnav" class="headerlink w-nav-link">{{ texts.1fa3c2 }}</a>
+        <a href="{{ links.2f }}" class="headerlink w-nav-link">{{ texts.3c2336d }}</a>
+        <div data-node-type="commerce-cart-wrapper" shop="mini-cart" data-open-product="" data-wf-cart-type="rightSidebar" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper cart">
+          <a href="{{ links.23 }}" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button w-inline-block">
+            <div class="w-commerce-commercecartopenlinkcount cart-quantity">{{ item_count }}</div>
+          </a>
+          <div data-node-type="commerce-cart-container-wrapper" style="display:none" class="w-commerce-commercecartcontainerwrapper w-commerce-commercecartcontainerwrapper--cartType-rightSidebar cart-wrap">
+            <div data-node-type="commerce-cart-container" class="w-commerce-commercecartcontainer cart-container">
+              <div class="w-commerce-commercecartheader cart-header">{%- image images.5a2952fa.url, images.5a2952fa.alt, '[]', 'width="83"' -%}
+                <h4 class="w-commerce-commercecartheading cart-heading">{{ texts.-77ee8913 }}</h4>
+                <a href="{{ links.23 }}" data-node-type="commerce-cart-close-link" class="w-commerce-commercecartcloselink close-button w-inline-block">{%- image images.-32510c0e.url, images.-32510c0e.alt, '[{"max":10000,"size":"100vw"}]', 'width="11" class="cart-close-icon"' -%}</a>
+              </div>
+              <div class="w-commerce-commercecartformwrapper">
+                <form data-node-type="commerce-cart-form" style="display:none" class="w-commerce-commercecartform default-state-2">
+                  <script type="text/x-wf-template" id="wf-template-2af60a4d-d361-1298-8ece-03b6fa256cb8"><div data-node-type="cart-item" class="cart-item w-commerce-commercecartitem"><img data-node-type="cart-item-image" class="cart-product-image w-commerce-commercecartitemimage" src="<%= it.image %>" data-sizes="[{"max":10000,"size":"100vw"}]"><div data-node-type="cart-item-info" class="cart-item-info w-commerce-commercecartiteminfo"><div><div data-node-type="cart-product-name" class="cart-product-name w-commerce-commercecartproductname"><%= it.name %></div><div data-node-type="cart-product-price" class="cart-product-price" data-commerce-type="variation-price"><%= it.price %></div></div><ul class="option-list w-commerce-commercecartoptionlist"><% Object.entries(it.options).forEach( data =>  { %><li data-node-type="cart-option-list-item"><span data-node-type="cart-option-list-item-label" class="cart-option-text"><%= data[0] %></span><span>: </span><span data-node-type="cart-option-list-item-value" class="cart-option-text"><%= data[1] %></span></li><% }) %></ul><a data-node-type="cart-remove-link" class="remove-button" href="#" data-product-id="<%= it.uniqueId %>"><div class="cart-remove-link">Remove</div></a></div><input class="w-commerce-commercecartquantity text-field cart-input" name="<%= it.uniqueId %>" type="number" min="0" min="1" value="<%= it.quantity %>" data-node-type="cart-quantity"></div></script>
+                  <div class="w-commerce-commercecartlist cart-list" data-wf-collection="database.commerceOrder.userItems" data-wf-template-id="wf-template-2af60a4d-d361-1298-8ece-03b6fa256cb8"></div>
+                  <ul item="products-list" role="list" class="mini-cart-list">
+                    <li class="cart-item-2">
+                      <div class="mini-cart-row">
+                        <div class="variations-main-wrapper">
+                          <div item="featured-image" class="mini-cart-featured-image"></div>
+                          <div class="minicart-info">
+                            <div item="title" class="text-block-38">{{ texts.-12723311 }}</div>
+                            <div item="price" class="text-block-39">{{ texts.-55cad6c5 }}<br>{{ texts.200d }}</div>
+                            <a item="remove" href="{{ links.23 }}" class="link-9">{{ texts.-37b5077c }}</a>
+                          </div>
+                        </div>
+                        <div item="quantity" class="cart-quantity-3">{{ texts.31 }}</div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="w-commerce-commercecartfooter cart-footer">
+                    <div class="w-commerce-commercecartlineitem cart-line-item">
+                      <div class="size5-text">{{ texts.-76f396dc }}</div>
+                      <div item="total" class="w-commerce-commercecartordervalue size6-text">{{ items_subtotal_price | money }}</div>
+                    </div>
+                    <div>
+                      
+                      <div style="position:relative" data-wf-paypal-button="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;color&quot;:&quot;black&quot;,&quot;shape&quot;:&quot;rect&quot;,&quot;label&quot;:&quot;paypal&quot;,&quot;tagline&quot;:false,&quot;note&quot;:false}" class="paypal">
+                        <div style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;z-index:999;cursor:auto"></div>
+                      </div>
+                      <a href="{{ links.5032f721 }}" value="Continue to Checkout" data-node-type="cart-checkout-button" item="checkout-link" class="w-commerce-commercecartcheckoutbutton main-button" data-loading-text="Hang Tight...">{{ texts.-7941186e }}</a>
+                    </div>
+                  </div>
+                </form>
+                <div class="w-commerce-commercecartemptystate empty-state dark-cart-empty-state">
+                  <div>{{ texts.3d503d2b }}</div>
+                </div>
+                <div style="display:none" data-node-type="commerce-cart-error" class="w-commerce-commercecarterrorstate error-message">
+                  <div class="w-cart-error-msg" data-w-cart-quantity-error="Product is not available in this quantity." data-w-cart-general-error="Something went wrong when adding this item to the cart." data-w-cart-checkout-error="Checkout is disabled on this site." data-w-cart-cart_order_min-error="Cart failed." data-w-cart-subscription_error-error="Cart failed.">{{ texts.-1c765d0d }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

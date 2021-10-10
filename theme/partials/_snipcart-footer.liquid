@@ -1,0 +1,26 @@
+
+<script async src="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js"></script>
+<script async defer src="/assets/js/udesly-snipcart.js"></script>
+<div hidden id="snipcart" data-api-key="{{ settings.ecommerce.snipcart.apiKey }}" data-config-add-product-behavior="none"></div>
+<script>
+window.ecommerceUtils = {
+    currencies: {
+        {% for currency in settings.ecommerce.currencies_and_formats.currencies %}
+        "{{ currency.currencyCode }}": "{{currency.symbol }}",
+{% endfor %}
+    },
+    priceTemplate: function(amount, symbol, currencyCode) {
+        const template = "{{ settings.ecommerce.currencies_and_formats.template }}";
+        const fractionDigits = {{settings.ecommerce.currencies_and_formats.fractionDigits}};
+        const group = "{{settings.ecommerce.currencies_and_formats.group}}";
+        const decimal = "{{settings.ecommerce.currencies_and_formats.decimal}}";
+        {% if settings.ecommerce.currencies_and_formats.hideDecimalForWholeNumbers %}
+        amount = Number(amount).toLocaleString('en-UK', {minimumFractionDigits: fractionDigits, maximumFractionDitigs: fractionDigits }).replace(/,/gm, group).replace(/\./gm, decimal);
+        {% else %}
+        amount = Number(amount).toLocaleString('en-UK', {minimumFractionDigits: 0, maximumFractionDitigs: fractionDigits }).replace(/,/gm, group).replace(/\./gm, decimal);
+        {% endif %}
+        
+        return template.replace(/{symbol}/gm, symbol).replace(/{amount}/gm, amount).replace(/{currencyCode}/gm, currencyCode.toUpperCase());
+    }
+}
+</script>

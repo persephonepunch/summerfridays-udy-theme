@@ -1,1278 +1,2313 @@
 backend:
-  name: "git-gateway"
+  name: git-gateway
   accept_roles:
-    - "admin"
-    - "editor"
-media_folder: "static/images"
+    - admin
+    - editor
+media_folder: theme/assets/images
+public_folder: /assets/images
 collections:
-  - name: "pages"
-    label: "Pages"
-    folder: "site/pages"
-    identifier_field: "title"
-    extension: "md"
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
     create: false
     delete: false
-    slug: "{{slug}}"
+    slug: '{{slug}}'
     editor:
       preview: false
+    folder: cms/pages
     fields:
-      - label: "Title"
-        name: "title"
-        widget: "string"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "{{slug}}.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
         collapsed: true
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
+          - label: Title
+            name: title
+            widget: string
             required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
+          - label: Description
+            name: description
+            widget: string
             required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
             required: false
             media_library:
               config:
                 multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
             required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
             required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
             required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
             required: false
-  - name: "product"
-    label: "Products"
-    folder: "site/product"
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: product
+    label: Products
+    folder: cms/product
     create: true
-    identifier_field: "name"
-    extension: "md"
-    slug: "{{slug}}"
-    editor:
-      preview: false
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
     fields:
-      - label: "Tags"
-        widget: "hidden"
-        name: "tags"
-        default: "product"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "single-product.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
-        collapsed: true
-        fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
-            required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
-            required: false
-            media_library:
-              config:
-                multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
-            required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
-            required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
-            required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
-            required: false
-      - widget: "list"
-        fields:
-          - widget: "string"
-            name: "name"
-            label: "Property Name"
-            required: true
-          - widget: "list"
-            name: "enum"
-            label: "Property Values"
-            min: 1
-        label_singular: "Variation Property"
-        name: "sku-properties"
-        label: "SKU Properties"
-      - widget: "relation"
-        collection: "category"
-        value_field: "site/undefined/{{slug}}.md"
-        search_fields:
-          - "slug"
-          - "name"
-        display_fields:
-          - "name"
+      - hint: ''
+        name: variation-properties
+        label: Variation Properties
+        widget: list
         required: false
+        summary: '{{name}}'
+        fields:
+          - hint: ''
+            name: slug
+            label: Slug
+            widget: hidden
+            required: true
+          - hint: ''
+            name: name
+            label: Name
+            widget: string
+            required: true
+          - hint: ''
+            name: values
+            label: Values
+            widget: list
+            required: true
+            summary: '{{name}}'
+            fields:
+              - hint: ''
+                name: slug
+                label: Slug
+                widget: hidden
+                required: true
+              - hint: ''
+                name: name
+                label: Name
+                widget: string
+                required: true
+      - hint: ''
+        name: variations
+        label: Variations
+        widget: list
+        required: true
+        summary: '{{title}}'
+        min: 1
+        fields:
+          - hint: Slug of the variation
+            name: slug
+            label: Slug
+            widget: string
+            required: true
+          - hint: Default variation?
+            name: default
+            label: Default
+            widget: boolean
+            required: true
+          - hint: ''
+            name: variation-properties
+            label: SKU Values
+            widget: prop-values
+            required: false
+          - hint: ''
+            name: title
+            label: Name
+            widget: string
+            required: true
+          - hint: ''
+            name: f_main-image
+            label: Main Image
+            widget: object
+            required: false
+            fields:
+              - hint: ''
+                name: url
+                label: Image
+                widget: image
+                required: false
+                allow_multiple: false
+              - hint: Image Alt
+                name: alt
+                label: alt
+                widget: string
+                required: false
+          - hint: ''
+            name: f_more-images
+            label: More Images
+            widget: list
+            required: false
+            fields:
+              - hint: ''
+                name: url
+                label: Image
+                widget: image
+                required: false
+                allow_multiple: false
+              - hint: Image Alt
+                name: alt
+                label: alt
+                widget: string
+                required: false
+          - hint: ''
+            name: f_price
+            label: Price
+            widget: price
+            required: true
+          - hint: Compare at Price must be higher than price
+            name: f_compare-at-price
+            label: Compare at price
+            widget: price
+            required: false
+          - hint: ''
+            name: f_download-files
+            label: Downloads
+            widget: list
+            required: false
+            fields:
+              - hint: ''
+                name: url
+                label: Image
+                widget: image
+                required: false
+                allow_multiple: false
+              - hint: Image Alt
+                name: alt
+                label: alt
+                widget: string
+                required: false
+          - hint: ''
+            name: f_width
+            label: Width
+            widget: number
+            required: false
+          - hint: ''
+            name: f_length
+            label: Length
+            widget: number
+            required: false
+          - hint: ''
+            name: f_height
+            label: Height
+            widget: number
+            required: false
+          - hint: ''
+            name: f_weight
+            label: Weight
+            widget: number
+            required: false
+          - hint: ''
+            name: f_sku
+            label: SKU
+            widget: string
+            required: false
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: Add this product to one or more categories.
+        name: f_category
+        label: Categories
+        widget: relation
+        required: false
+        collection: category
+        value_field: cms/category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
         multiple: true
-        name: "category"
-      - name: "description"
-        label: "Description"
-        widget: "string"
+      - hint: ''
+        name: f_description
+        label: Description
+        widget: string
         required: false
-      - name: "shippable"
-        label: "Requires Shipping"
-        widget: "boolean"
+      - hint: ''
+        name: f_shippable
+        label: Requires Shipping
+        widget: boolean
         required: false
-      - widget: "select"
-        name: "tax-category"
-        label: "Tax Category"
+      - hint: ''
+        name: f_ec-product-type
+        label: Product type
+        widget: select
+        required: false
         options:
-          - value: "standard-taxable"
-            label: "Taxable"
-      - widget: "relation"
-        collection: "sku"
-        value_field: "site/sku/{{slug}}.md"
-        search_fields:
-          - "slug"
-          - "name"
-        display_fields:
-          - "name"
-        required: false
-        name: "default-sku"
-      - widget: "select"
-        name: "ec-product-type"
-        label: "Product type"
-        options:
-          - label: "Physical"
-            value: "Physical"
-          - label: "Digital"
-            value: "Digital"
-          - label: "Service"
-            value: "Service"
-          - label: "Membership"
-            value: "Membership"
-          - label: "Advanced"
-            value: "Advanced"
-      - name: "name"
-        label: "Name"
-        widget: "string"
-        required: true
-      - name: "created-on"
-        label: "Created On"
-        widget: "datetime"
-        required: false
-      - name: "updated-on"
-        label: "Updated On"
-        widget: "datetime"
-        required: false
-      - name: "published-on"
-        label: "Published On"
-        widget: "datetime"
-        required: false
-  - name: "sku"
-    label: "SKUs"
-    folder: "site/sku"
+          - label: Physical
+            value: Physical
+          - label: Digital
+            value: Digital
+          - label: Service
+            value: Service
+          - label: Membership
+            value: Membership
+          - label: Advanced
+            value: Advanced
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: product
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[product].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: post
+    label: Blog Posts
+    folder: cms/post
     create: true
-    identifier_field: "name"
-    extension: "md"
-    slug: "{{slug}}"
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Post Body
+        name: body
+        widget: markdown
+        required: false
+      - hint: A summary of the blog post that appears on blog post grid
+        name: f_post-summary
+        label: Post Summary
+        widget: text
+        required: false
+      - hint: ''
+        name: f_main-image
+        label: Main Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Smaller version of main image that is used on blog post grid
+        name: f_thumbnail-image
+        label: Thumbnail image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_featured
+        label: Featured?
+        widget: boolean
+        required: false
+      - hint: ''
+        name: f_color
+        label: Color
+        widget: color
+        required: false
+        enableAlpha: true
+        allowInput: true
+      - hint: Post Name
+        name: f_post-name
+        label: Post Name
+        widget: string
+        required: false
+      - hint: Date
+        name: f_date
+        label: Date
+        widget: string
+        required: false
+      - hint: 'Updated '
+        name: f_updated
+        label: Updated
+        widget: string
+        required: false
+      - hint: Image
+        name: f_image
+        label: Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Author name
+        name: f_author-name
+        label: Author name
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: post
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[post].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: category
+    label: Categories
+    folder: cms/category
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: category
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[category].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
     editor:
       preview: false
-    fields:
-      - label: "Tags"
-        widget: "hidden"
-        name: "tags"
-        default: "sku"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "single-sku.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
-        collapsed: true
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
             required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
-            required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
-            required: false
-            media_library:
-              config:
-                multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
-            required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
-            required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
-            required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
-            required: false
-      - widget: "list"
-        fields:
-          - widget: "string"
-            name: "property"
-            label: "Property Name (Must Match Property name set in the corresponding product)"
-            required: true
-          - widget: "string"
-            name: "name"
-            label: "Property Value"
-            required: true
-        label_singular: "Variation Properties"
-        name: "sku-values"
-        label: "SKU Values"
-      - widget: "relation"
-        collection: "product"
-        value_field: "site/product/{{slug}}.md"
-        search_fields:
-          - "slug"
-          - "name"
-        display_fields:
-          - "name"
-        required: false
-        name: "product"
-      - widget: "object"
-        name: "main-image"
-        label: "Main Image"
-        fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
+          - name: favicon
+            label: Favicon
+            widget: image
             allow_multiple: false
             required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
-            required: false
-      - widget: "list"
-        name: "more-images"
-        label: "More Images"
-        fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
             allow_multiple: false
             required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
             required: false
-      - widget: "object"
-        name: "price"
-        label: "Price"
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
         fields:
-          - widget: "select"
-            name: "unit"
-            label: "Currency"
-            options:
-              - value: "AFN"
-                label: "Afghani"
-              - value: "ALL"
-                label: "Lek"
-              - value: "DZD"
-                label: "Algerian Dinar"
-              - value: "USD"
-                label: "US Dollar"
-              - value: "EUR"
-                label: "Euro"
-              - value: "AOA"
-                label: "Kwanza"
-              - value: "XCD"
-                label: "East Caribbean Dollar"
-              - value: "ARS"
-                label: "Argentine Peso"
-              - value: "AMD"
-                label: "Armenian Dram"
-              - value: "AWG"
-                label: "Aruban Florin"
-              - value: "AUD"
-                label: "Australian Dollar"
-              - value: "AZN"
-                label: "Azerbaijanian Manat"
-              - value: "BSD"
-                label: "Bahamian Dollar"
-              - value: "BHD"
-                label: "Bahraini Dinar"
-              - value: "BDT"
-                label: "Taka"
-              - value: "BBD"
-                label: "Barbados Dollar"
-              - value: "BYN"
-                label: "Belarussian Ruble"
-              - value: "BZD"
-                label: "Belize Dollar"
-              - value: "XOF"
-                label: "CFA Franc BCEAO"
-              - value: "BMD"
-                label: "Bermudian Dollar"
-              - value: "BTN"
-                label: "Ngultrum"
-              - value: "INR"
-                label: "Indian Rupee"
-              - value: "BOB"
-                label: "Boliviano"
-              - value: "BOV"
-                label: "Mvdol"
-              - value: "BAM"
-                label: "Convertible Mark"
-              - value: "BWP"
-                label: "Pula"
-              - value: "NOK"
-                label: "Norwegian Krone"
-              - value: "BRL"
-                label: "Brazilian Real"
-              - value: "BND"
-                label: "Brunei Dollar"
-              - value: "BGN"
-                label: "Bulgarian Lev"
-              - value: "BIF"
-                label: "Burundi Franc"
-              - value: "CVE"
-                label: "Cabo Verde Escudo"
-              - value: "KHR"
-                label: "Riel"
-              - value: "XAF"
-                label: "CFA Franc BEAC"
-              - value: "CAD"
-                label: "Canadian Dollar"
-              - value: "KYD"
-                label: "Cayman Islands Dollar"
-              - value: "CLF"
-                label: "Unidad de Fomento"
-              - value: "CLP"
-                label: "Chilean Peso"
-              - value: "CNY"
-                label: "Yuan Renminbi"
-              - value: "COP"
-                label: "Colombian Peso"
-              - value: "COU"
-                label: "Unidad de Valor Real"
-              - value: "KMF"
-                label: "Comoro Franc"
-              - value: "CDF"
-                label: "Congolese Franc"
-              - value: "NZD"
-                label: "New Zealand Dollar"
-              - value: "CRC"
-                label: "Costa Rican Colon"
-              - value: "HRK"
-                label: "Kuna"
-              - value: "CUC"
-                label: "Peso Convertible"
-              - value: "CUP"
-                label: "Cuban Peso"
-              - value: "ANG"
-                label: "Netherlands Antillean Guilder"
-              - value: "CZK"
-                label: "Czech Koruna"
-              - value: "DKK"
-                label: "Danish Krone"
-              - value: "DJF"
-                label: "Djibouti Franc"
-              - value: "DOP"
-                label: "Dominican Peso"
-              - value: "EGP"
-                label: "Egyptian Pound"
-              - value: "SVC"
-                label: "El Salvador Colon"
-              - value: "ERN"
-                label: "Nakfa"
-              - value: "ETB"
-                label: "Ethiopian Birr"
-              - value: "FKP"
-                label: "Falkland Islands Pound"
-              - value: "FJD"
-                label: "Fiji Dollar"
-              - value: "XPF"
-                label: "CFP Franc"
-              - value: "GMD"
-                label: "Dalasi"
-              - value: "GEL"
-                label: "Lari"
-              - value: "GHS"
-                label: "Ghana Cedi"
-              - value: "GIP"
-                label: "Gibraltar Pound"
-              - value: "GTQ"
-                label: "Quetzal"
-              - value: "GBP"
-                label: "Pound Sterling"
-              - value: "GNF"
-                label: "Guinea Franc"
-              - value: "GYD"
-                label: "Guyana Dollar"
-              - value: "HTG"
-                label: "Gourde"
-              - value: "HNL"
-                label: "Lempira"
-              - value: "HKD"
-                label: "Hong Kong Dollar"
-              - value: "HUF"
-                label: "Forint"
-              - value: "ISK"
-                label: "Iceland Krona"
-              - value: "IDR"
-                label: "Rupiah"
-              - value: "XDR"
-                label: "SDR (Special Drawing Right)"
-              - value: "IRR"
-                label: "Iranian Rial"
-              - value: "IQD"
-                label: "Iraqi Dinar"
-              - value: "ILS"
-                label: "New Israeli Sheqel"
-              - value: "JMD"
-                label: "Jamaican Dollar"
-              - value: "JPY"
-                label: "Yen"
-              - value: "JOD"
-                label: "Jordanian Dinar"
-              - value: "KZT"
-                label: "Tenge"
-              - value: "KES"
-                label: "Kenyan Shilling"
-              - value: "KPW"
-                label: "North Korean Won"
-              - value: "KRW"
-                label: "Won"
-              - value: "KWD"
-                label: "Kuwaiti Dinar"
-              - value: "KGS"
-                label: "Som"
-              - value: "LAK"
-                label: "Kip"
-              - value: "LBP"
-                label: "Lebanese Pound"
-              - value: "LSL"
-                label: "Loti"
-              - value: "ZAR"
-                label: "Rand"
-              - value: "LRD"
-                label: "Liberian Dollar"
-              - value: "LYD"
-                label: "Libyan Dinar"
-              - value: "CHF"
-                label: "Swiss Franc"
-              - value: "MOP"
-                label: "Pataca"
-              - value: "MGA"
-                label: "Malagasy Ariary"
-              - value: "MWK"
-                label: "Kwacha"
-              - value: "MYR"
-                label: "Malaysian Ringgit"
-              - value: "MVR"
-                label: "Rufiyaa"
-              - value: "MRU"
-                label: "Ouguiya"
-              - value: "MUR"
-                label: "Mauritius Rupee"
-              - value: "XUA"
-                label: "ADB Unit of Account"
-              - value: "MXN"
-                label: "Mexican Peso"
-              - value: "MXV"
-                label: "Mexican Unidad de Inversion (UDI)"
-              - value: "MDL"
-                label: "Moldovan Leu"
-              - value: "MNT"
-                label: "Tugrik"
-              - value: "MAD"
-                label: "Moroccan Dirham"
-              - value: "MZN"
-                label: "Mozambique Metical"
-              - value: "MMK"
-                label: "Kyat"
-              - value: "NAD"
-                label: "Namibia Dollar"
-              - value: "NPR"
-                label: "Nepalese Rupee"
-              - value: "NIO"
-                label: "Cordoba Oro"
-              - value: "NGN"
-                label: "Naira"
-              - value: "OMR"
-                label: "Rial Omani"
-              - value: "PKR"
-                label: "Pakistan Rupee"
-              - value: "PAB"
-                label: "Balboa"
-              - value: "PGK"
-                label: "Kina"
-              - value: "PYG"
-                label: "Guarani"
-              - value: "PEN"
-                label: "Nuevo Sol"
-              - value: "PHP"
-                label: "Philippine Peso"
-              - value: "PLN"
-                label: "Zloty"
-              - value: "QAR"
-                label: "Qatari Rial"
-              - value: "MKD"
-                label: "Denar"
-              - value: "RON"
-                label: "Romanian Leu"
-              - value: "RUB"
-                label: "Russian Ruble"
-              - value: "RWF"
-                label: "Rwanda Franc"
-              - value: "SHP"
-                label: "Saint Helena Pound"
-              - value: "WST"
-                label: "Tala"
-              - value: "STN"
-                label: "Dobra"
-              - value: "SAR"
-                label: "Saudi Riyal"
-              - value: "RSD"
-                label: "Serbian Dinar"
-              - value: "SCR"
-                label: "Seychelles Rupee"
-              - value: "SLL"
-                label: "Leone"
-              - value: "SGD"
-                label: "Singapore Dollar"
-              - value: "XSU"
-                label: "Sucre"
-              - value: "SBD"
-                label: "Solomon Islands Dollar"
-              - value: "SOS"
-                label: "Somali Shilling"
-              - value: "SSP"
-                label: "South Sudanese Pound"
-              - value: "LKR"
-                label: "Sri Lanka Rupee"
-              - value: "SDG"
-                label: "Sudanese Pound"
-              - value: "SRD"
-                label: "Surinam Dollar"
-              - value: "SZL"
-                label: "Lilangeni"
-              - value: "SEK"
-                label: "Swedish Krona"
-              - value: "CHE"
-                label: "WIR Euro"
-              - value: "CHW"
-                label: "WIR Franc"
-              - value: "SYP"
-                label: "Syrian Pound"
-              - value: "TWD"
-                label: "New Taiwan Dollar"
-              - value: "TJS"
-                label: "Somoni"
-              - value: "TZS"
-                label: "Tanzanian Shilling"
-              - value: "THB"
-                label: "Baht"
-              - value: "TOP"
-                label: "Pa’anga"
-              - value: "TTD"
-                label: "Trinidad and Tobago Dollar"
-              - value: "TND"
-                label: "Tunisian Dinar"
-              - value: "TRY"
-                label: "Turkish Lira"
-              - value: "TMT"
-                label: "Turkmenistan New Manat"
-              - value: "UGX"
-                label: "Uganda Shilling"
-              - value: "UAH"
-                label: "Hryvnia"
-              - value: "AED"
-                label: "UAE Dirham"
-              - value: "USN"
-                label: "US Dollar (Next day)"
-              - value: "UYI"
-                label: "Uruguay Peso en Unidades Indexadas (URUIURUI)"
-              - value: "UYU"
-                label: "Peso Uruguayo"
-              - value: "UZS"
-                label: "Uzbekistan Sum"
-              - value: "VUV"
-                label: "Vatu"
-              - value: "VEF"
-                label: "Bolivar"
-              - value: "VND"
-                label: "Dong"
-              - value: "YER"
-                label: "Yemeni Rial"
-              - value: "ZMW"
-                label: "Zambian Kwacha"
-              - value: "ZWL"
-                label: "Zimbabwe Dollar"
-            required: true
-          - widget: "number"
-            name: "value"
-            label: "Price (in Cents)"
-            required: true
-      - widget: "object"
-        name: "compare-at-price"
-        label: "Compare-at price"
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
         fields:
-          - widget: "select"
-            name: "unit"
-            label: "Currency"
-            options:
-              - value: "AFN"
-                label: "Afghani"
-              - value: "ALL"
-                label: "Lek"
-              - value: "DZD"
-                label: "Algerian Dinar"
-              - value: "USD"
-                label: "US Dollar"
-              - value: "EUR"
-                label: "Euro"
-              - value: "AOA"
-                label: "Kwanza"
-              - value: "XCD"
-                label: "East Caribbean Dollar"
-              - value: "ARS"
-                label: "Argentine Peso"
-              - value: "AMD"
-                label: "Armenian Dram"
-              - value: "AWG"
-                label: "Aruban Florin"
-              - value: "AUD"
-                label: "Australian Dollar"
-              - value: "AZN"
-                label: "Azerbaijanian Manat"
-              - value: "BSD"
-                label: "Bahamian Dollar"
-              - value: "BHD"
-                label: "Bahraini Dinar"
-              - value: "BDT"
-                label: "Taka"
-              - value: "BBD"
-                label: "Barbados Dollar"
-              - value: "BYN"
-                label: "Belarussian Ruble"
-              - value: "BZD"
-                label: "Belize Dollar"
-              - value: "XOF"
-                label: "CFA Franc BCEAO"
-              - value: "BMD"
-                label: "Bermudian Dollar"
-              - value: "BTN"
-                label: "Ngultrum"
-              - value: "INR"
-                label: "Indian Rupee"
-              - value: "BOB"
-                label: "Boliviano"
-              - value: "BOV"
-                label: "Mvdol"
-              - value: "BAM"
-                label: "Convertible Mark"
-              - value: "BWP"
-                label: "Pula"
-              - value: "NOK"
-                label: "Norwegian Krone"
-              - value: "BRL"
-                label: "Brazilian Real"
-              - value: "BND"
-                label: "Brunei Dollar"
-              - value: "BGN"
-                label: "Bulgarian Lev"
-              - value: "BIF"
-                label: "Burundi Franc"
-              - value: "CVE"
-                label: "Cabo Verde Escudo"
-              - value: "KHR"
-                label: "Riel"
-              - value: "XAF"
-                label: "CFA Franc BEAC"
-              - value: "CAD"
-                label: "Canadian Dollar"
-              - value: "KYD"
-                label: "Cayman Islands Dollar"
-              - value: "CLF"
-                label: "Unidad de Fomento"
-              - value: "CLP"
-                label: "Chilean Peso"
-              - value: "CNY"
-                label: "Yuan Renminbi"
-              - value: "COP"
-                label: "Colombian Peso"
-              - value: "COU"
-                label: "Unidad de Valor Real"
-              - value: "KMF"
-                label: "Comoro Franc"
-              - value: "CDF"
-                label: "Congolese Franc"
-              - value: "NZD"
-                label: "New Zealand Dollar"
-              - value: "CRC"
-                label: "Costa Rican Colon"
-              - value: "HRK"
-                label: "Kuna"
-              - value: "CUC"
-                label: "Peso Convertible"
-              - value: "CUP"
-                label: "Cuban Peso"
-              - value: "ANG"
-                label: "Netherlands Antillean Guilder"
-              - value: "CZK"
-                label: "Czech Koruna"
-              - value: "DKK"
-                label: "Danish Krone"
-              - value: "DJF"
-                label: "Djibouti Franc"
-              - value: "DOP"
-                label: "Dominican Peso"
-              - value: "EGP"
-                label: "Egyptian Pound"
-              - value: "SVC"
-                label: "El Salvador Colon"
-              - value: "ERN"
-                label: "Nakfa"
-              - value: "ETB"
-                label: "Ethiopian Birr"
-              - value: "FKP"
-                label: "Falkland Islands Pound"
-              - value: "FJD"
-                label: "Fiji Dollar"
-              - value: "XPF"
-                label: "CFP Franc"
-              - value: "GMD"
-                label: "Dalasi"
-              - value: "GEL"
-                label: "Lari"
-              - value: "GHS"
-                label: "Ghana Cedi"
-              - value: "GIP"
-                label: "Gibraltar Pound"
-              - value: "GTQ"
-                label: "Quetzal"
-              - value: "GBP"
-                label: "Pound Sterling"
-              - value: "GNF"
-                label: "Guinea Franc"
-              - value: "GYD"
-                label: "Guyana Dollar"
-              - value: "HTG"
-                label: "Gourde"
-              - value: "HNL"
-                label: "Lempira"
-              - value: "HKD"
-                label: "Hong Kong Dollar"
-              - value: "HUF"
-                label: "Forint"
-              - value: "ISK"
-                label: "Iceland Krona"
-              - value: "IDR"
-                label: "Rupiah"
-              - value: "XDR"
-                label: "SDR (Special Drawing Right)"
-              - value: "IRR"
-                label: "Iranian Rial"
-              - value: "IQD"
-                label: "Iraqi Dinar"
-              - value: "ILS"
-                label: "New Israeli Sheqel"
-              - value: "JMD"
-                label: "Jamaican Dollar"
-              - value: "JPY"
-                label: "Yen"
-              - value: "JOD"
-                label: "Jordanian Dinar"
-              - value: "KZT"
-                label: "Tenge"
-              - value: "KES"
-                label: "Kenyan Shilling"
-              - value: "KPW"
-                label: "North Korean Won"
-              - value: "KRW"
-                label: "Won"
-              - value: "KWD"
-                label: "Kuwaiti Dinar"
-              - value: "KGS"
-                label: "Som"
-              - value: "LAK"
-                label: "Kip"
-              - value: "LBP"
-                label: "Lebanese Pound"
-              - value: "LSL"
-                label: "Loti"
-              - value: "ZAR"
-                label: "Rand"
-              - value: "LRD"
-                label: "Liberian Dollar"
-              - value: "LYD"
-                label: "Libyan Dinar"
-              - value: "CHF"
-                label: "Swiss Franc"
-              - value: "MOP"
-                label: "Pataca"
-              - value: "MGA"
-                label: "Malagasy Ariary"
-              - value: "MWK"
-                label: "Kwacha"
-              - value: "MYR"
-                label: "Malaysian Ringgit"
-              - value: "MVR"
-                label: "Rufiyaa"
-              - value: "MRU"
-                label: "Ouguiya"
-              - value: "MUR"
-                label: "Mauritius Rupee"
-              - value: "XUA"
-                label: "ADB Unit of Account"
-              - value: "MXN"
-                label: "Mexican Peso"
-              - value: "MXV"
-                label: "Mexican Unidad de Inversion (UDI)"
-              - value: "MDL"
-                label: "Moldovan Leu"
-              - value: "MNT"
-                label: "Tugrik"
-              - value: "MAD"
-                label: "Moroccan Dirham"
-              - value: "MZN"
-                label: "Mozambique Metical"
-              - value: "MMK"
-                label: "Kyat"
-              - value: "NAD"
-                label: "Namibia Dollar"
-              - value: "NPR"
-                label: "Nepalese Rupee"
-              - value: "NIO"
-                label: "Cordoba Oro"
-              - value: "NGN"
-                label: "Naira"
-              - value: "OMR"
-                label: "Rial Omani"
-              - value: "PKR"
-                label: "Pakistan Rupee"
-              - value: "PAB"
-                label: "Balboa"
-              - value: "PGK"
-                label: "Kina"
-              - value: "PYG"
-                label: "Guarani"
-              - value: "PEN"
-                label: "Nuevo Sol"
-              - value: "PHP"
-                label: "Philippine Peso"
-              - value: "PLN"
-                label: "Zloty"
-              - value: "QAR"
-                label: "Qatari Rial"
-              - value: "MKD"
-                label: "Denar"
-              - value: "RON"
-                label: "Romanian Leu"
-              - value: "RUB"
-                label: "Russian Ruble"
-              - value: "RWF"
-                label: "Rwanda Franc"
-              - value: "SHP"
-                label: "Saint Helena Pound"
-              - value: "WST"
-                label: "Tala"
-              - value: "STN"
-                label: "Dobra"
-              - value: "SAR"
-                label: "Saudi Riyal"
-              - value: "RSD"
-                label: "Serbian Dinar"
-              - value: "SCR"
-                label: "Seychelles Rupee"
-              - value: "SLL"
-                label: "Leone"
-              - value: "SGD"
-                label: "Singapore Dollar"
-              - value: "XSU"
-                label: "Sucre"
-              - value: "SBD"
-                label: "Solomon Islands Dollar"
-              - value: "SOS"
-                label: "Somali Shilling"
-              - value: "SSP"
-                label: "South Sudanese Pound"
-              - value: "LKR"
-                label: "Sri Lanka Rupee"
-              - value: "SDG"
-                label: "Sudanese Pound"
-              - value: "SRD"
-                label: "Surinam Dollar"
-              - value: "SZL"
-                label: "Lilangeni"
-              - value: "SEK"
-                label: "Swedish Krona"
-              - value: "CHE"
-                label: "WIR Euro"
-              - value: "CHW"
-                label: "WIR Franc"
-              - value: "SYP"
-                label: "Syrian Pound"
-              - value: "TWD"
-                label: "New Taiwan Dollar"
-              - value: "TJS"
-                label: "Somoni"
-              - value: "TZS"
-                label: "Tanzanian Shilling"
-              - value: "THB"
-                label: "Baht"
-              - value: "TOP"
-                label: "Pa’anga"
-              - value: "TTD"
-                label: "Trinidad and Tobago Dollar"
-              - value: "TND"
-                label: "Tunisian Dinar"
-              - value: "TRY"
-                label: "Turkish Lira"
-              - value: "TMT"
-                label: "Turkmenistan New Manat"
-              - value: "UGX"
-                label: "Uganda Shilling"
-              - value: "UAH"
-                label: "Hryvnia"
-              - value: "AED"
-                label: "UAE Dirham"
-              - value: "USN"
-                label: "US Dollar (Next day)"
-              - value: "UYI"
-                label: "Uruguay Peso en Unidades Indexadas (URUIURUI)"
-              - value: "UYU"
-                label: "Peso Uruguayo"
-              - value: "UZS"
-                label: "Uzbekistan Sum"
-              - value: "VUV"
-                label: "Vatu"
-              - value: "VEF"
-                label: "Bolivar"
-              - value: "VND"
-                label: "Dong"
-              - value: "YER"
-                label: "Yemeni Rial"
-              - value: "ZMW"
-                label: "Zambian Kwacha"
-              - value: "ZWL"
-                label: "Zimbabwe Dollar"
-            required: false
-          - widget: "number"
-            name: "value"
-            label: "Price (in Cents)"
-            required: false
-      - widget: "list"
-        name: "download-files"
-        label: "Downloads"
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Your Cart, key: -77ee8913'
+            label: Text
+            name: '-77ee8913'
+            widget: string
+          - hint: 'Original text: product, key: -12723311'
+            label: Text
+            name: '-12723311'
+            widget: string
+          - hint: 'Original text: $ 90.00, key: -55cad6c5'
+            label: Text
+            name: '-55cad6c5'
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: 'Original text: remove, key: -37b5077c'
+            label: Text
+            name: '-37b5077c'
+            widget: string
+          - hint: 'Original text: 1, key: 31'
+            label: Text
+            name: '31'
+            widget: string
+          - hint: 'Original text: Subtotal, key: -76f396dc'
+            label: Text
+            name: '-76f396dc'
+            widget: string
+          - hint: 'Original text: Continue to Checkout, key: -7941186e'
+            label: Text
+            name: '-7941186e'
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: >-
+              Original text: Product is not available in this quantity., key:
+              -1c765d0d
+            label: Text
+            name: '-1c765d0d'
+            widget: string
+          - hint: 'Original text: Menu Dropdown, key: -2703c24e'
+            label: Text
+            name: '-2703c24e'
+            widget: string
+          - hint: 'Original text: Link 3, key: -78547653'
+            label: Text
+            name: '-78547653'
+            widget: string
+          - hint: 'Original text: Link 2, key: -78547654'
+            label: Text
+            name: '-78547654'
+            widget: string
+          - hint: 'Original text: Link 1, key: -78547655'
+            label: Text
+            name: '-78547655'
+            widget: string
+          - hint: 'Original text: Shop All, key: -10d29e89'
+            label: Text
+            name: '-10d29e89'
+            widget: string
+          - hint: 'Original text: Shop by Category, key: -18320f43'
+            label: Text
+            name: '-18320f43'
+            widget: string
+          - hint: 'Original text: Shop by Concern, key: 79df5301'
+            label: Text
+            name: 79df5301
+            widget: string
+          - hint: 'Original text: Skincare Quiz, key: -7b568ad9'
+            label: Text
+            name: '-7b568ad9'
+            widget: string
+          - hint: 'Original text: Blog, key: 1fa3c2'
+            label: Text
+            name: 1fa3c2
+            widget: string
+          - hint: 'Original text: No items found, key: -509a509d'
+            label: Text
+            name: '-509a509d'
+            widget: string
+          - hint: 'Original text: Message, key: -63dc6819'
+            label: Text
+            name: '-63dc6819'
+            widget: string
+          - hint: 'Original text: SALE, key: 26b847'
+            label: Text
+            name: 26b847
+            widget: string
+          - hint: 'Original text: 2.25 Fl oz, key: -2d0fce7c'
+            label: Text
+            name: '-2d0fce7c'
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat. Aenean faucibus nibh et justo
+              cursus id rutrum lorem imperdiet. , key: 2fd1ddc2
+            label: Text
+            name: 2fd1ddc2
+            widget: text
+          - hint: >-
+              Original text: Duis cursus, mi quis viverra ornare, eros dolor
+              interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus
+              nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae
+              risus tristique posuere.Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Suspendisse varius enim in eros elementum
+              tristique. , key: -68e6f552
+            label: Text
+            name: '-68e6f552'
+            widget: text
+          - hint: 'Original text: Variant Option, key: 404ae8b0'
+            label: Text
+            name: 404ae8b0
+            widget: string
+          - hint: 'Original text: Quantity, key: -48bd3755'
+            label: Text
+            name: '-48bd3755'
+            widget: string
+          - hint: 'Original text: This product is out of stock., key: 7aaa2dac'
+            label: Text
+            name: 7aaa2dac
+            widget: string
+          - hint: 'Original text: how to use, key: 3a140432'
+            label: Text
+            name: 3a140432
+            widget: string
+          - hint: 'Original text: Ingredients, key: -19fa8f5e'
+            label: Text
+            name: '-19fa8f5e'
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat. Aenean faucibus nibh et justo
+              cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus
+              tristique posuere., key: -5286fc08
+            label: Text
+            name: '-5286fc08'
+            widget: text
+          - hint: 'Original text: GET THE SET, key: -5fe866f7'
+            label: Text
+            name: '-5fe866f7'
+            widget: string
+          - hint: 'Original text: Learn more, key: -52aefc2f'
+            label: Text
+            name: '-52aefc2f'
+            widget: string
+          - hint: 'Original text: Related Products, key: 557e3df9'
+            label: Text
+            name: 557e3df9
+            widget: string
+          - hint: 'Original text: SULFATE-FREE, key: 331d5043'
+            label: Text
+            name: 331d5043
+            widget: string
+          - hint: 'Original text: Recyclable Packaging, key: -14dafb31'
+            label: Text
+            name: '-14dafb31'
+            widget: string
+          - hint: 'Original text: Vegan, key: 4eb5da5'
+            label: Text
+            name: 4eb5da5
+            widget: string
+          - hint: 'Original text: Cruelty Free, key: 119705ba'
+            label: Text
+            name: 119705ba
+            widget: string
+          - hint: 'Original text: Paraben Free, key: 296ff501'
+            label: Text
+            name: 296ff501
+            widget: string
+          - hint: 'Original text: Information, key: -273fe2f4'
+            label: Text
+            name: '-273fe2f4'
+            widget: string
+          - hint: 'Original text: Shipping & Returns, key: 5c6e1357'
+            label: Text
+            name: 5c6e1357
+            widget: string
+          - hint: 'Original text: Rewards program, key: -13055a98'
+            label: Text
+            name: '-13055a98'
+            widget: string
+          - hint: 'Original text: FAQs, key: 20d03d'
+            label: Text
+            name: 20d03d
+            widget: string
+          - hint: 'Original text: About, key: 3c2336d'
+            label: Text
+            name: 3c2336d
+            widget: string
+          - hint: 'Original text: Recycle with us, key: 33c25b8b'
+            label: Text
+            name: 33c25b8b
+            widget: string
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: 'Original text: Account, key: 1d0c220d'
+            label: Text
+            name: 1d0c220d
+            widget: string
+          - hint: 'Original text: My account, key: 4468a3d9'
+            label: Text
+            name: 4468a3d9
+            widget: string
+          - hint: 'Original text: My order, key: 7c791bfa'
+            label: Text
+            name: 7c791bfa
+            widget: string
+          - hint: 'Original text: SMS sign up, key: 4b0a07f7'
+            label: Text
+            name: 4b0a07f7
+            widget: string
+          - hint: 'Original text: Accessibility, key: 22eaf12e'
+            label: Text
+            name: 22eaf12e
+            widget: string
+          - hint: 'Original text: Shop, key: 274f16'
+            label: Text
+            name: 274f16
+            widget: string
+          - hint: 'Original text: Shop all, key: -10d22669'
+            label: Text
+            name: '-10d22669'
+            widget: string
+          - hint: 'Original text: Shop by category, key: -1c0c7363'
+            label: Text
+            name: '-1c0c7363'
+            widget: string
+          - hint: 'Original text: Shop by concerns, key: -41cf568e'
+            label: Text
+            name: '-41cf568e'
+            widget: string
+          - hint: 'Original text: Skincare quiz, key: -7b47fef9'
+            label: Text
+            name: '-7b47fef9'
+            widget: string
+          - hint: 'Original text: Stay up to date, key: 512b4db5'
+            label: Text
+            name: 512b4db5
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Terms of Use, key: 38622077'
+            label: Text
+            name: '38622077'
+            widget: string
+          - hint: 'Original text: Privacy-Policy, key: 6ff31b57'
+            label: Text
+            name: 6ff31b57
+            widget: string
+          - hint: >-
+              Original text: ©2021 Summer Fridays. All Rights Reserved, key:
+              -121a51dd
+            label: Text
+            name: '-121a51dd'
+            widget: string
+          - hint: 'Original text: Category name, key: 40574c4d'
+            label: Text
+            name: 40574c4d
+            widget: string
+          - hint: 'Original text: on sale, key: -527e8a18'
+            label: Text
+            name: '-527e8a18'
+            widget: string
+          - hint: 'Original text: Previous, key: -4811e0e9'
+            label: Text
+            name: '-4811e0e9'
+            widget: string
+          - hint: 'Original text: Next, key: 24ff13'
+            label: Text
+            name: 24ff13
+            widget: string
+          - hint: 'Original text: Heading, key: -6d5fea1e'
+            label: Text
+            name: '-6d5fea1e'
+            widget: string
+          - hint: 'Original text: What’s a Rich Text element?, key: -3c0dda4d'
+            label: Text
+            name: '-3c0dda4d'
+            widget: string
+          - hint: >-
+              Original text: The rich text element allows you to create and
+              format headings, paragraphs, blockquotes, images, and video all in
+              one place instead of having to add and format them individually.
+              Just double-click and easily create content., key: 2e633c6a
+            label: Text
+            name: 2e633c6a
+            widget: text
+          - hint: 'Original text: Static and dynamic content editing, key: 57fa6135'
+            label: Text
+            name: 57fa6135
+            widget: string
+          - hint: >-
+              Original text: A rich text element can be used with static or
+              dynamic content. For static content, just drop it into any page
+              and begin editing. For dynamic content, add a rich text field to
+              any collection and then connect a rich text element to that field
+              in the settings panel. Voila!, key: -a016b40
+            label: Text
+            name: '-a016b40'
+            widget: text
+          - hint: >-
+              Original text: How to customize formatting for each rich text,
+              key: -4bffb26e
+            label: Text
+            name: '-4bffb26e'
+            widget: string
+          - hint: >-
+              Original text: Headings, paragraphs, blockquotes, figures, images,
+              and figure captions can all be styled after a class is added to
+              the rich text element using the "When inside of" nested selector
+              system., key: -43ba1153
+            label: Text
+            name: '-43ba1153'
+            widget: text
+          - hint: >-
+              Original text: This is some text inside of a div block., key:
+              7635fb4f
+            label: Text
+            name: 7635fb4f
+            widget: string
+          - hint: 'Original text: Block Quote, key: 3f3470e9'
+            label: Text
+            name: 3f3470e9
+            widget: string
+          - hint: 'Original text: Shop the feed, key: -55a42249'
+            label: Text
+            name: '-55a42249'
+            widget: string
+          - hint: 'Original text: Terms and conditions, key: e666c7a'
+            label: Text
+            name: e666c7a
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+              aliqua. Risus nullam eget felis eget nunc. Sit amet nisl purus in
+              mollis. Condimentum lacinia quis vel eros donec ac. Mauris vitae
+              ultricies leo integer malesuada nunc vel risus commodo. Aliquet
+              nibh praesent tristique magna. Ullamcorper morbi tincidunt ornare
+              massa eget. Purus viverra accumsan in nisl nisi scelerisque eu
+              ultrices vitae. Vitae purus faucibus ornare suspendisse sed nisi
+              lacus sed viverra. Mattis enim ut tellus elementum. Eget egestas
+              purus viverra accumsan. Consectetur adipiscing elit ut aliquam
+              purus. Nunc aliquet bibendum enim facilisis gravida. Neque aliquam
+              vestibulum morbi blandit cursus risus. Sed euismod nisi porta
+              lorem mollis aliquam ut.Tempus iaculis urna id volutpat lacus. Sit
+              amet dictum sit amet justo donec enim diam. Sed velit dignissim
+              sodales ut eu sem integer vitae justo. Tristique nulla aliquet
+              enim tortor. Elementum integer enim neque volutpat ac tincidunt
+              vitae. Eleifend donec pretium vulputate sapien nec. Congue eu
+              consequat ac felis. Ac turpis egestas maecenas pharetra convallis
+              posuere morbi leo urna. Sit amet nulla facilisi morbi tempus
+              iaculis urna. Ornare suspendisse sed nisi lacus sed viverra tellus
+              in. Nec nam aliquam sem et tortor consequat id porta. , key:
+              49d66d14
+            label: Text
+            name: 49d66d14
+            widget: text
+          - hint: >-
+              Original text: Curabitur gravida arcu ac tortor dignissim. Proin
+              sagittis nisl rhoncus mattis rhoncus urna neque viverra. Sapien
+              eget mi proin sed libero enim sed faucibus. Elit duis tristique
+              sollicitudin nibh sit amet commodo nulla facilisi. Mauris rhoncus
+              aenean vel elit scelerisque.Sed turpis tincidunt id aliquet risus
+              feugiat in ante metus. Placerat duis ultricies lacus sed turpis
+              tincidunt id aliquet. Nunc id cursus metus aliquam eleifend mi.
+              Vel facilisis volutpat est velit egestas dui id. Aliquam
+              vestibulum morbi blandit cursus risus at ultrices mi tempus.
+              Tellus pellentesque eu tincidunt tortor. Odio pellentesque diam
+              volutpat commodo sed egestas. Pellentesque massa placerat duis
+              ultricies lacus sed. Praesent tristique magna sit amet purus
+              gravida quis blandit turpis. Tincidunt eget nullam non nisi est
+              sit. Ullamcorper morbi tincidunt ornare massa eget egestas. Eros
+              donec ac odio tempor orci dapibus ultrices. , key: -6f33fd65
+            label: Text
+            name: '-6f33fd65'
+            widget: text
+          - hint: >-
+              Original text: Convallis posuere morbi leo urna molestie
+              at.Vulputate ut pharetra sit amet. Dolor sed viverra ipsum nunc
+              aliquet bibendum. Turpis tincidunt id aliquet risus feugiat in.
+              Non quam lacus suspendisse faucibus interdum posuere lorem. Elit
+              ut aliquam purus sit amet. Urna porttitor rhoncus dolor purus non.
+              Sodales neque sodales ut etiam sit amet nisl purus. Fermentum
+              posuere urna nec tincidunt. , key: -6859930e
+            label: Text
+            name: '-6859930e'
+            widget: text
+          - hint: >-
+              Original text: Duis tristique sollicitudin nibh sit amet commodo
+              nulla. Tempus iaculis urna id volutpat. Mattis aliquam faucibus
+              purus in massa tempor nec.Sed elementum tempus egestas sed sed
+              risus. Ut venenatis tellus in metus vulputate eu scelerisque
+              felis. Et molestie ac feugiat sed. Diam volutpat commodo sed
+              egestas egestas fringilla phasellus. Dui vivamus arcu felis
+              bibendum ut tristique. Turpis egestas integer eget aliquet.
+              Lobortis mattis aliquam faucibus purus in. Lacus suspendisse
+              faucibus interdum posuere lorem ipsum dolor sit amet. Lacus
+              laoreet non curabitur gravida. Eget lorem dolor sed viverra ipsum
+              nunc. Ac turpis egestas maecenas pharetra convallis posuere morbi
+              leo. Nisi vitae suscipit tellus mauris a diam. Ac turpis egestas
+              sed tempus urna. Euismod in pellentesque massa placerat duis
+              ultricies lacus. Nunc sed id semper risus.Diam donec adipiscing
+              tristique risus nec feugiat in. Molestie a iaculis at erat. Nec
+              feugiat in fermentum posuere urna nec tincidunt. Sem integer vitae
+              justo eget magna fermentum iaculis. Arcu cursus vitae congue
+              mauris rhoncus. Quis vel eros donec ac odio tempor orci dapibus
+              ultrices. , key: 76cf1d74
+            label: Text
+            name: 76cf1d74
+            widget: text
+          - hint: >-
+              Original text: Sapien et ligula ullamcorper malesuada proin libero
+              nunc consequat. Eget dolor morbi non arcu risus quis varius quam.
+              Euismod in pellentesque massa placerat duis ultricies. Vitae et
+              leo duis ut diam quam nulla porttitor massa.Vulputate ut pharetra
+              sit amet aliquam id. Vitae semper quis lectus nulla. Elementum
+              sagittis vitae et leo duis. Nulla facilisi nullam vehicula ipsum a
+              arcu cursus vitae congue. Nunc sed velit dignissim sodales. Id
+              donec ultrices tincidunt arcu non sodales neque. Amet nisl
+              suscipit adipiscing bibendum. Pretium lectus quam id leo in vitae
+              turpis. Sapien pellentesque habitant morbi tristique. Pellentesque
+              id nibh tortor id aliquet lectus proin. , key: 5cc15dc
+            label: Text
+            name: 5cc15dc
+            widget: text
+          - hint: >-
+              Original text: Feugiat in ante metus dictum at.Neque ornare aenean
+              euismod elementum nisi. A condimentum vitae sapien pellentesque
+              habitant. Sollicitudin tempor id eu nisl nunc mi. Lacinia quis vel
+              eros donec ac odio tempor orci dapibus. Id interdum velit laoreet
+              id donec. Donec massa sapien faucibus et molestie ac feugiat sed
+              lectus. Cursus euismod quis viverra nibh cras. Mauris vitae
+              ultricies leo integer malesuada nunc. Feugiat vivamus at augue
+              eget arcu dictum varius duis. Est lorem ipsum dolor sit amet
+              consectetur adipiscing.Quis imperdiet massa tincidunt nunc
+              pulvinar sapien. Neque ornare aenean euismod elementum nisi quis
+              eleifend. Praesent semper feugiat nibh sed pulvinar proin gravida.
+              Sem nulla pharetra diam sit amet nisl. Tristique senectus et netus
+              et malesuada fames ac turpis. Enim facilisis gravida neque
+              convallis. Ultrices dui sapien eget mi proin. Placerat duis
+              ultricies lacus sed turpis tincidunt id. Sit amet porttitor eget
+              dolor. Duis ut diam quam nulla porttitor massa id.A erat nam at
+              lectus urna duis convallis. Feugiat vivamus at augue eget arcu
+              dictum. Mattis ullamcorper velit sed ullamcorper morbi. Id semper
+              risus in hendrerit gravida rutrum quisque non tellus. , key:
+              -65aecf61
+            label: Text
+            name: '-65aecf61'
+            widget: text
+          - hint: >-
+              Original text: Sit amet risus nullam eget. Aenean pharetra magna
+              ac placerat vestibulum. Sapien pellentesque habitant morbi
+              tristique senectus et netus. Nisl purus in mollis nunc sed id.
+              Dolor sit amet consectetur adipiscing elit pellentesque habitant.
+              Commodo viverra maecenas accumsan lacus vel. Ridiculus mus mauris
+              vitae ultricies leo integer malesuada nunc. Ultrices neque ornare
+              aenean euismod elementum nisi quis eleifend. Et magnis dis
+              parturient montes nascetur ridiculus mus mauris. Purus gravida
+              quis blandit turpis cursus in hac habitasse platea. Quam nulla
+              porttitor massa id neque aliquam. Lorem dolor sed viverra ipsum
+              nunc aliquet bibendum. Pulvinar mattis nunc sed blandit libero.
+              Porttitor massa id neque aliquam vestibulum morbi blandit cursus
+              risus. , key: 648bba6b
+            label: Text
+            name: 648bba6b
+            widget: text
+          - hint: 'Original text: Protected Page, key: -11d4bbff'
+            label: Text
+            name: '-11d4bbff'
+            widget: string
+          - hint: >-
+              Original text: Incorrect password. Please try again., key:
+              -f5c4b5f
+            label: Text
+            name: '-f5c4b5f'
+            widget: string
+          - hint: 'Original text: Page Not Found, key: -40b0787c'
+            label: Text
+            name: '-40b0787c'
+            widget: string
+          - hint: >-
+              Original text: The page you are looking for doesn't exist, key:
+              56f3ab96
+            label: Text
+            name: 56f3ab96
+            widget: string
+          - hint: 'Original text: Back to Home, key: -74c2c295'
+            label: Text
+            name: '-74c2c295'
+            widget: string
+          - hint: 'Original text: No matching results., key: -75764c4'
+            label: Text
+            name: '-75764c4'
+            widget: string
+          - hint: 'Original text: Home, key: 2268ff'
+            label: Text
+            name: 2268ff
+            widget: string
+          - hint: 'Original text: Dropdown, key: -15e657cf'
+            label: Text
+            name: '-15e657cf'
+            widget: string
+          - hint: 'Original text: Search Results:, key: 5610b67c'
+            label: Text
+            name: 5610b67c
+            widget: string
+          - hint: 'Original text: business, key: -445b4040'
+            label: Text
+            name: '-445b4040'
+            widget: string
+          - hint: 'Original text: Sign up to our mailing list, key: 46a504ca'
+            label: Text
+            name: 46a504ca
+            widget: string
+          - hint: 'Original text: Privacy Policy, key: -3fbde6f6'
+            label: Text
+            name: '-3fbde6f6'
+            widget: string
+          - hint: 'Original text: Summer Fridays, key: -7426387d'
+            label: Text
+            name: '-7426387d'
+            widget: string
+          - hint: >-
+              Original text: We collect cookies. Lorem ipsum sit dolor amet. Any
+              Links here., key: 24d1261a
+            label: Text
+            name: 24d1261a
+            widget: string
+          - hint: 'Original text: Page Title, key: 6abc1d87'
+            label: Text
+            name: 6abc1d87
+            widget: string
+          - hint: 'Original text: Orders, key: -72bbb0fb'
+            label: Text
+            name: '-72bbb0fb'
+            widget: string
+          - hint: 'Original text: Order number, key: 3abfdc7b'
+            label: Text
+            name: 3abfdc7b
+            widget: string
+          - hint: 'Original text: Order date, key: -5f976aa0'
+            label: Text
+            name: '-5f976aa0'
+            widget: string
+          - hint: 'Original text: Payment status, key: -72b56094'
+            label: Text
+            name: '-72b56094'
+            widget: string
+          - hint: 'Original text: Order status, key: 4334d124'
+            label: Text
+            name: 4334d124
+            widget: string
+          - hint: 'Original text: Total, key: 4d3eb24'
+            label: Text
+            name: 4d3eb24
+            widget: string
+          - hint: 'Original text: #133, key: 10a74e'
+            label: Text
+            name: 10a74e
+            widget: string
+          - hint: 'Original text: June 30, 2019, key: 43d372f5'
+            label: Text
+            name: 43d372f5
+            widget: string
+          - hint: 'Original text: Authorized, key: 1d5ed1bb'
+            label: Text
+            name: 1d5ed1bb
+            widget: string
+          - hint: 'Original text: Unfulfilled, key: -62aa17a'
+            label: Text
+            name: '-62aa17a'
+            widget: string
+          - hint: 'Original text: $2.500, key: 4044c395'
+            label: Text
+            name: 4044c395
+            widget: string
+          - hint: 'Original text: Account Details, key: -548514f1'
+            label: Text
+            name: '-548514f1'
+            widget: string
+          - hint: 'Original text: Username, key: -bfc130a'
+            label: Text
+            name: '-bfc130a'
+            widget: string
+          - hint: 'Original text: John, key: 23512b'
+            label: Text
+            name: 23512b
+            widget: string
+          - hint: 'Original text: Doe, key: 10d1a'
+            label: Text
+            name: 10d1a
+            widget: string
+          - hint: 'Original text: mail@johndoe.com, key: 24fdb659'
+            label: Text
+            name: 24fdb659
+            widget: string
+          - hint: 'Original text: Default Address, key: 52c68cd5'
+            label: Text
+            name: 52c68cd5
+            widget: string
+          - hint: 'Original text: Addresses, key: -546d647e'
+            label: Text
+            name: '-546d647e'
+            widget: string
+          - hint: 'Original text: Logout, key: -7802fe56'
+            label: Text
+            name: '-7802fe56'
+            widget: string
+          - hint: 'Original text: Login, key: 462ff49'
+            label: Text
+            name: 462ff49
+            widget: string
+          - hint: 'Original text: Lost Password, key: -721dcfe9'
+            label: Text
+            name: '-721dcfe9'
+            widget: string
+          - hint: 'Original text: Email, key: 3ff5b7c'
+            label: Text
+            name: 3ff5b7c
+            widget: string
+          - hint: 'Original text: Password, key: 4c641ebb'
+            label: Text
+            name: 4c641ebb
+            widget: string
+          - hint: 'Original text: Need a new account?, key: 6c2d843b'
+            label: Text
+            name: 6c2d843b
+            widget: string
+          - hint: 'Original text: Create an account, key: 4c4476be'
+            label: Text
+            name: 4c4476be
+            widget: string
+          - hint: 'Original text: First Name, key: 69b3163b'
+            label: Text
+            name: 69b3163b
+            widget: string
+          - hint: 'Original text: Last Name, key: -1416662b'
+            label: Text
+            name: '-1416662b'
+            widget: string
+          - hint: 'Original text: Enter your password, key: 68d59c80'
+            label: Text
+            name: 68d59c80
+            widget: string
+          - hint: 'Original text: Confirm your password, key: 2b970e68'
+            label: Text
+            name: 2b970e68
+            widget: string
+          - hint: 'Original text: Address, key: 1ed033d4'
+            label: Text
+            name: 1ed033d4
+            widget: string
+          - hint: 'Original text: Select one..., key: 57f3b1cc'
+            label: Text
+            name: 57f3b1cc
+            widget: string
+          - hint: 'Original text: First Choice, key: -491b32af'
+            label: Text
+            name: '-491b32af'
+            widget: string
+          - hint: 'Original text: Second Choice, key: 3c4172cd'
+            label: Text
+            name: 3c4172cd
+            widget: string
+          - hint: 'Original text: Third Choice, key: -1b351146'
+            label: Text
+            name: '-1b351146'
+            widget: string
+          - hint: 'Original text: Delete Address, key: 6104467f'
+            label: Text
+            name: 6104467f
+            widget: string
+          - hint: 'Original text: Add new address, key: 2b873455'
+            label: Text
+            name: 2b873455
+            widget: string
+          - hint: 'Original text: New Address, key: -3a927ecc'
+            label: Text
+            name: '-3a927ecc'
+            widget: string
+          - hint: >-
+              Original text: Free shipping or orders over $25 consetetur
+              sadipscing elitr, sed diam nonumy eirmod tempor invidunt , key:
+              7bb4b2d5
+            label: Text
+            name: 7bb4b2d5
+            widget: text
+          - hint: 'Original text: Learn More, key: -52bd880f'
+            label: Text
+            name: '-52bd880f'
+            widget: string
+          - hint: >-
+              Original text: Marianna Hewitt + Lauren Gores Ireland, key:
+              -17a28e55
+            label: Text
+            name: '-17a28e55'
+            widget: string
+          - hint: 'Original text: Meet the Founders, key: -19b17b54'
+            label: Text
+            name: '-19b17b54'
+            widget: string
+          - hint: >-
+              Original text: Full disclosure: we can’t begin to count how many
+              beauty products we’ve tried. Thanks to our blogs—Life With Me and
+              You & Lu—we’ve been sent pretty much everything out there., key:
+              3e55a3e3
+            label: Text
+            name: 3e55a3e3
+            widget: text
+          - hint: "Original text: Even with cabinets, bins and boxes full of every type of treatment, we were still searching for something with good-for-you ingredients that gave our skin an immediate selfie-worthy glow. \_, key: 580d5cd4"
+            label: Text
+            name: 580d5cd4
+            widget: text
+          - hint: >-
+              Original text: So, with a team of industry experts, we dreamed up
+              our first product—a simple mask that would leave skin looking
+              gorgeous whether you’re hopping off a plane or just running out
+              the door., key: 473859c1
+            label: Text
+            name: 473859c1
+            widget: text
+          - hint: >-
+              Original text: With more formulas in the works, we’re excited to
+              give our communities a chance to take a little SUMMER FRIDAY time
+              for themselves. This is about feeling confident in clear,
+              beautiful skin so you can focus on the fun stuff., key: -132261fe
+            label: Text
+            name: '-132261fe'
+            widget: text
+          - hint: 'Original text: About the Brand, key: -4ccef5fb'
+            label: Text
+            name: '-4ccef5fb'
+            widget: string
+          - hint: >-
+              Original text: When you work this hard but still want soft,
+              healthy-looking skin, we’ve got your back—and your beauty routine.
+              We’re product connoisseurs who battle our own dull, tired,
+              stressed-out complexions (hello, NYC-LAX red eye) and set out to
+              create skincare formulas with good-for-you ingredients and
+              covetable results. Relieving stressed-out skin so everyday feels
+              like a Summer Friday., key: -32cc763b
+            label: Text
+            name: '-32cc763b'
+            widget: text
+          - hint: 'Original text: #TGISF Skin. Every day., key: -4e806a80'
+            label: Text
+            name: '-4e806a80'
+            widget: string
+          - hint: 'Original text: IN THE PRESS, key: 73848659'
+            label: Text
+            name: '73848659'
+            widget: string
+          - hint: 'Original text: Featured, key: -d78b7b2'
+            label: Text
+            name: '-d78b7b2'
+            widget: string
+          - hint: 'Original text: See all press, key: 3402b957'
+            label: Text
+            name: 3402b957
+            widget: string
+          - hint: 'Original text: GIVE YOUR SKIN SOME TIME OFF, key: 2335f2c3'
+            label: Text
+            name: 2335f2c3
+            widget: string
+          - hint: >-
+              Original text: SHOP vegan, cruelty-free & paraben-free products.,
+              key: -58f72144
+            label: Text
+            name: '-58f72144'
+            widget: string
+          - hint: 'Original text: Shop Now, key: -10d26d54'
+            label: Text
+            name: '-10d26d54'
+            widget: string
+          - hint: 'Original text: SHOP OUR INSTAGRAM, key: 620c07f4'
+            label: Text
+            name: 620c07f4
+            widget: string
+          - hint: 'Original text: @summerfridays, key: 26a49c25'
+            label: Text
+            name: 26a49c25
+            widget: string
+          - hint: 'Original text: JET LAG MASK, key: -33fda55f'
+            label: Text
+            name: '-33fda55f'
+            widget: string
+          - hint: 'Original text: PRODUCT 2, key: 67666521'
+            label: Text
+            name: '67666521'
+            widget: string
+          - hint: 'Original text: LOREM IPSUM, key: 3830da5b'
+            label: Text
+            name: 3830da5b
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consetetur sadipscing
+              elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+              magna aliquyam erat, sed diam voluptua., key: 316c7bbc
+            label: Text
+            name: 316c7bbc
+            widget: text
+          - hint: 'Original text: New Collection, key: 2a76c15e'
+            label: Text
+            name: 2a76c15e
+            widget: string
+          - hint: 'Original text: Buy now, key: 71bb9a1c'
+            label: Text
+            name: 71bb9a1c
+            widget: string
+          - hint: 'Original text: THE TIME SAVING MULTI-TASKER, key: 15651ea8'
+            label: Text
+            name: 15651ea8
+            widget: string
+          - hint: 'Original text: SKINCARE QUIZ, key: 1099d927'
+            label: Text
+            name: 1099d927
+            widget: string
+          - hint: >-
+              Original text: Quiz ipsum dolor sit met, consetetur sadipscing
+              elitr, sed diam nonumy., key: -30750af5
+            label: Text
+            name: '-30750af5'
+            widget: string
+          - hint: 'Original text: Take the quiz, key: -6fb20c03'
+            label: Text
+            name: '-6fb20c03'
+            widget: string
+          - hint: 'Original text: PRODUCTS, key: -d2e3e9c'
+            label: Text
+            name: '-d2e3e9c'
+            widget: string
+          - hint: 'Original text: PRICE, key: 48db929'
+            label: Text
+            name: 48db929
+            widget: string
+          - hint: 'Original text: QUANTITY, key: -1df1ab75'
+            label: Text
+            name: '-1df1ab75'
+            widget: string
+          - hint: 'Original text: x, key: 78'
+            label: Text
+            name: '78'
+            widget: string
+          - hint: 'Original text: Shoes, key: 4c292c8'
+            label: Text
+            name: 4c292c8
+            widget: string
+          - hint: 'Original text: Variant, key: 7155a865'
+            label: Text
+            name: 7155a865
+            widget: string
+          - hint: 'Original text: 80$, key: d82c'
+            label: Text
+            name: d82c
+            widget: string
+          - hint: 'Original text: Il tuo carrello è vuoto., key: -43bad85c'
+            label: Text
+            name: '-43bad85c'
+            widget: string
+          - hint: 'Original text: Torna allo Shop, key: -af0ba6e'
+            label: Text
+            name: '-af0ba6e'
+            widget: string
+          - hint: 'Original text: Total:, key: -6a56866a'
+            label: Text
+            name: '-6a56866a'
+            widget: string
+          - hint: 'Original text: €250,00, key: -55946695'
+            label: Text
+            name: '-55946695'
+            widget: string
+          - hint: 'Original text: Discounts:, key: -692decb8'
+            label: Text
+            name: '-692decb8'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
         fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
-            allow_multiple: false
-            required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
-            required: false
-      - name: "width"
-        label: "Width"
-        widget: "number"
-        required: false
-      - name: "length"
-        label: "Length"
-        widget: "number"
-        required: false
-      - name: "height"
-        label: "Height"
-        widget: "number"
-        required: false
-      - name: "weight"
-        label: "Weight"
-        widget: "number"
-        required: false
-      - name: "sku"
-        label: "SKU"
-        widget: "string"
-        required: false
-      - name: "name"
-        label: "Name"
-        widget: "string"
-        required: true
-      - name: "created-on"
-        label: "Created On"
-        widget: "datetime"
-        required: false
-      - name: "updated-on"
-        label: "Updated On"
-        widget: "datetime"
-        required: false
-      - name: "published-on"
-        label: "Published On"
-        widget: "datetime"
-        required: false
-      - name: "ecSkuInventoryQuantity"
-        label: "Quantity"
-        widget: "number"
-        required: false
-  - name: "post"
-    label: "Blog Posts"
-    folder: "site/post"
-    create: true
-    identifier_field: "name"
-    extension: "md"
-    slug: "{{slug}}"
-    editor:
-      preview: false
-    fields:
-      - label: "Tags"
-        widget: "hidden"
-        name: "tags"
-        default: "post"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "single-post.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
-        collapsed: true
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: /#/checkout, key: 5032f721'
+            label: Link
+            name: 5032f721
+            widget: string
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: #top, key: 11aa52'
+            label: Link
+            name: 11aa52
+            widget: string
+          - hint: 'Original link: https://flowbase.co, key: 7b36b18c'
+            label: Link
+            name: 7b36b18c
+            widget: string
+          - hint: 'Original link: /account/addresses, key: 670739f1'
+            label: Link
+            name: 670739f1
+            widget: string
+          - hint: 'Original link: /account/register, key: a0cea74'
+            label: Link
+            name: a0cea74
+            widget: string
+          - hint: 'Original link: /checkout, key: -6bd4518b'
+            label: Link
+            name: '-6bd4518b'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
-            required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
-            required: false
-            media_library:
-              config:
-                multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
-            required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
-            required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
-            required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
-            required: false
-      - label: "Body"
-        name: "body"
-        widget: "markdown"
-        required: false
-      - name: "post-summary"
-        label: "Post Summary"
-        widget: "text"
-        required: false
-      - widget: "object"
-        name: "main-image"
-        label: "Main Image"
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: '20889e70'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i5661c4af
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i74a83dff
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3bb2025
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i708ea3fc
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i2a5bdddc
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i36b09637
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3a9404a6
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: iaad9fb0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-600e11a2'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4cf71348'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: deda723
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6136275f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 69e39d60
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-5c8d9260'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '1797575'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 63d3600f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2dcab44e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 36c5e456
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4f9afb37'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '633595e8'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-65a9cd77'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5a2952fa
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-32510c0e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-386696bf'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-446a97bd'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: d49fd46
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2fe63049'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-298c1a62'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-658f0a48'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7c11d054
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5db61545
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: e341af6
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: b5a20df
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 48791c67
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-18dd464e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7569f679
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2c54f007'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1a908bf4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-177478b9'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6176734e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 444aaae4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4c6a6b02'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-50d19d03'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2004e5a1
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2e316df2'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-49c790e1'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '16185092'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-31363271'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1ddc9548'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+      - label: eCommerce
+        name: ecommerce
+        file: cms/_data/settings/ecommerce.json
         fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
-            allow_multiple: false
-            required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
-            required: false
-      - widget: "object"
-        name: "thumbnail-image"
-        label: "Thumbnail image"
-        fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
-            allow_multiple: false
-            required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
-            required: false
-      - name: "featured"
-        label: "Featured?"
-        widget: "boolean"
-        required: false
-      - name: "color"
-        label: "Color"
-        widget: "color"
-        required: false
-      - name: "post-name"
-        label: "Post Name"
-        widget: "string"
-        required: false
-      - name: "date"
-        label: "Date"
-        widget: "string"
-        required: false
-      - name: "updated"
-        label: "Updated"
-        widget: "string"
-        required: false
-      - widget: "object"
-        name: "image"
-        label: "Image"
-        fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
-            allow_multiple: false
-            required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
-            required: false
-      - name: "author-name"
-        label: "Author name"
-        widget: "string"
-        required: false
-      - name: "name"
-        label: "Name"
-        widget: "string"
-        required: true
-      - name: "created-on"
-        label: "Created On"
-        widget: "datetime"
-        required: false
-      - name: "updated-on"
-        label: "Updated On"
-        widget: "datetime"
-        required: false
-      - name: "published-on"
-        label: "Published On"
-        widget: "datetime"
-        required: false
-  - name: "category"
-    label: "Categories"
-    folder: "site/category"
-    create: true
-    identifier_field: "name"
-    extension: "md"
-    slug: "{{slug}}"
-    editor:
-      preview: false
-    fields:
-      - label: "Tags"
-        widget: "hidden"
-        name: "tags"
-        default: "category"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "single-category.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
-        collapsed: true
-        fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
-            required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
-            required: false
-            media_library:
-              config:
-                multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
-            required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
-            required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
-            required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
-            required: false
-      - name: "name"
-        label: "Name"
-        widget: "string"
-        required: true
-      - name: "created-on"
-        label: "Created On"
-        widget: "datetime"
-        required: false
-      - name: "updated-on"
-        label: "Updated On"
-        widget: "datetime"
-        required: false
-      - name: "published-on"
-        label: "Published On"
-        widget: "datetime"
-        required: false
+          - label: Title
+            name: title
+            widget: hidden
+            default: eCommerce
+          - label: Currencies and Formats
+            name: currencies_and_formats
+            widget: object
+            fields:
+              - hint: >-
+                  Template used to format the price, you can use following
+                  placeholders: {amount}, {currencyCode}, {symbol}
+                name: template
+                label: Price Template
+                widget: string
+                required: true
+              - hint: Character to divide decimals
+                name: decimal
+                label: Decimal
+                widget: string
+                required: true
+              - hint: Character to group amount
+                name: group
+                label: Group
+                widget: string
+                required: true
+              - hint: Number of fraction digits
+                name: fractionDigits
+                label: Fraction Digits
+                widget: number
+                required: true
+                value_type: int
+              - hint: Hide decimals for whole prices
+                name: hideDecimalForWholeNumbers
+                label: Hide decimals
+                widget: boolean
+                required: false
+              - hint: ''
+                name: currencies
+                label: Currencies
+                widget: list
+                required: true
+                min: 1
+                fields:
+                  - hint: Currency Code (3 char) all lowercase
+                    name: currencyCode
+                    label: Currency Code
+                    widget: string
+                    required: true
+                  - hint: ''
+                    name: symbol
+                    label: Symbol
+                    widget: string
+                    required: true
+          - label: Snipcart
+            name: snipcart
+            widget: object
+            fields:
+              - hint: Public Api Key
+                name: apiKey
+                label: Api Key
+                widget: string
+                required: true
+          - label: Snipcart Style
+            name: css
+            widget: object
+            fields:
+              - hint: 'Original color: #52bcf8'
+                name: primary-color
+                label: Primary color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #5082e4'
+                name: secondary-color
+                label: Secondary color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #f0f5f6'
+                name: tertiary-color
+                label: Tertiary color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #e8f0fe'
+                name: autofill-color
+                label: Autofill color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original Font Family: Open Sans,sans-serif'
+                name: main-font
+                label: Main font
+                widget: string
+                required: true
+              - hint: 'Original color: #313332'
+                name: text-color
+                label: Text color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #d93120'
+                name: red-color
+                label: Red color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original Font Family: Montserrat,sans-serif'
+                name: heading-font
+                label: Heading font
+                widget: string
+                required: true
+              - hint: 'Original color: #6ae35c'
+                name: green-color
+                label: Green color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #fff'
+                name: white-color
+                label: White color
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #fdfefe'
+                name: input-bgcolor
+                label: Input bgcolor
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+              - hint: 'Original color: #f7fafa'
+                name: box-bgcolor
+                label: Box bgcolor
+                widget: color
+                required: true
+                enableAlpha: true
+                allowInput: true
+publish_mode: editorial_workflow

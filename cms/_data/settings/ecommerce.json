@@ -1,0 +1,29 @@
+{
+  "currencies_and_formats": {
+    "decimal": ".",
+    "group": ",",
+    "template": "{symbol} {amount} {currencyCode}",
+    "fractionDigits": 2,
+    "hideDecimalForWholeNumbers": false,
+    "currencies": [
+      {
+        "currencyCode": "usd",
+        "symbol": "$"
+      }
+    ]
+  },
+  "css": {
+    "primary-color": "#52bcf8",
+    "secondary-color": "#5082e4",
+    "tertiary-color": "#f0f5f6",
+    "autofill-color": "#e8f0fe",
+    "main-font": "Open Sans,sans-serif",
+    "text-color": "#313332",
+    "red-color": "#d93120",
+    "heading-font": "Montserrat,sans-serif",
+    "green-color": "#6ae35c",
+    "white-color": "#fff",
+    "input-bgcolor": "#fdfefe",
+    "box-bgcolor": "#f7fafa"
+  }
+}

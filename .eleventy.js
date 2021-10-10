@@ -1,22 +1,18 @@
 
-      const filters = require('./_utils/filters.js');
+      const createCollectionsAndFilters = require('./_utils/index.js');
       
       module.exports = function(eleventyConfig) {
+       
+        eleventyConfig.addPassthroughCopy({"theme/assets": "assets"});
 
-        function priceTemplate(amount, currencyCode) {
-            return `$ ${amount} USD`;
-        }
-
-        filters(eleventyConfig, {"symbol":"$","decimal":".","fractionDigits":2,"group":",","template":"{{wf {\"path\":\"symbol\",\"type\":\"PlainText\"} }} {{wf {\"path\":\"amount\",\"type\":\"CommercePrice\"} }} {{wf {\"path\":\"currencyCode\",\"type\":\"PlainText\"} }}","hideDecimalForWholeNumbers":false,"currencyCode":"USD"}, priceTemplate);
-
-        eleventyConfig.addPassthroughCopy("static/**");
-
-        eleventyConfig.addPassthroughCopy("admin/**");
+        eleventyConfig.addPassthroughCopy("admin");
+        
+        createCollectionsAndFilters(eleventyConfig);
         
         return {
           dir: {
-            input: "site",
-            includes: "_views",
+            input: "cms",
+            includes: "../theme",
             output: "public"
           }
         };

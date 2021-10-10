@@ -2,12 +2,22 @@
   "name": "summerfridays-udy-theme",
   "dependencies": {
     "@11ty/eleventy": "^0.11.0",
-    "glob": "^7.1.6",
-    "sharp": "^0.26.1"
+    "@11ty/eleventy-img": "^0.9.0",
+    "archiver": "^5.2.0",
+    "extract-zip": "^2.0.1",
+    "lodash.chunk": "^4.2.0",
+    "lodash.get": "^4.4.2",
+    "fs-extra": "^9.1.0",
+    "fuse.js": "^6.4.6",
+    "node-fetch": "^2.6.1"
   },
   "scripts": {
+    "optimize": "node ./_utils/scripts/optimize-assets.js",
+    "preserve": "npm run optimize",
+    "prebuild": "npm run optimize",
     "serve": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build": "npx @11ty/eleventy",
+    "local-backend": "npx netlify-cms-proxy-server"
   },
   "devDependencies": {
     "date-fns": "2.16.1",
